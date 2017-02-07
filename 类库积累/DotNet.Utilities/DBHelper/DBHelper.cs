@@ -46,7 +46,18 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="configString">web.config 关键字</param>
         public DBHelper(string configString)
         {
-            ConfigString = configString;
+            this.ConfigString = configString;
+        }
+
+        /// <summary>
+        /// 数据工厂类
+        /// </summary>
+        /// <param name="connectionString">连接字符串</param>
+        /// <param name="providerName">数据提供者</param>
+        public DBHelper(string connectionString, string providerName)
+        {
+            base.ProviderName = providerName;
+            base.ConnectionString = connectionString;
         }
     }
 }

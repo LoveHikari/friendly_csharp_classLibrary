@@ -14,14 +14,18 @@ namespace DotNet.Utilities.DBHelper
     /// </summary>
     public abstract class CrDB : IDBHelper
     {
+        
+        private string _providerName;
+        
+        private string _connectionString;
         /// <summary>
         /// 数据提供者
         /// </summary>
-        private string _providerName;
+        public string ProviderName{get { return _providerName; } set { _providerName = value; }}
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private string _connectionString;
+        public string ConnectionString { get { return _connectionString; } set { _connectionString = value; } }
         /// <summary>
         /// 使该类不可new
         /// </summary>
@@ -173,6 +177,7 @@ namespace DotNet.Utilities.DBHelper
             }
             DbDataAdapter da = GetDbProviderFactory().CreateDataAdapter();
             da.SelectCommand = command;
+
             return da;
         }
         /// <summary>
@@ -569,14 +574,18 @@ namespace DotNet.Utilities.DBHelper
             try
             {
                 dataAdapter.Fill(result);
-                return result;
             }
             catch (Exception ex)
             {
                 WriteLog.WriteError(ex);
                 throw ex;
             }
-
+            finally
+            {
+                DbConnection connection = CreateConnection();
+                connection.Close();
+            }
+            return result;
         }
         /// <summary>
         /// 执行查询,并以DataSet返回指定记录的结果集

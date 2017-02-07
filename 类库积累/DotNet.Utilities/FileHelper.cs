@@ -459,8 +459,13 @@ namespace DotNet.Utilities
         /// </summary>
         /// <param name="orignFile">原始文件</param>
         /// <param name="newFile">新文件路径</param>
-        public static void FileCoppy(string orignFile, string newFile)
+        public static void FileCopy(string orignFile, string newFile)
         {
+            string dir = System.IO.Path.GetDirectoryName(newFile);
+            if (!System.IO.Directory.Exists(dir))
+            {
+                System.IO.Directory.CreateDirectory(dir);
+            }
             System.IO.File.Copy(orignFile, newFile, true);
         }
         /// <summary>
