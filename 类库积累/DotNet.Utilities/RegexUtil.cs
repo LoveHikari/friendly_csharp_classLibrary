@@ -15,7 +15,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsChineseCh(string input)
         {
-            return IsMatch(@"^[\u4e00-\u9fa5]+$", input);
+            return IsMatch("^[\\u4e00-\\u9fa5]+$", input);
         }
         /// <summary>
         /// 判断字符串是否是数字
@@ -24,7 +24,7 @@ namespace DotNet.Utilities
         /// <returns>如果是则返回true，不是则返回false</returns>
         public static bool IsNumeric(string str)
         {
-            if (str != null && IsMatch(@"^-?\d+(\.\d+)?$", str))
+            if (str != null && IsMatch("^-?\\d+(\\.\\d+)?$", str))
                 return true;
             else
                 return false;
@@ -44,13 +44,13 @@ namespace DotNet.Utilities
         }
 
         /// <summary>
-        /// 判断输入的字符串是否是一个合法的手机号
+        /// 判断输入的字符串是否是一个合法的手机号,国内 13、15、18开头的手机号正则表达式
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public static bool IsMobilePhone(string input)
         {
-            return IsMatch(@"^13\\d{9}$", input);
+            return IsMatch("^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$", input);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsNotNagtive(string input)
         {
-            return IsMatch(@"^\d+$", input);
+            return IsMatch("^\\d+$", input);
         }
         /// <summary>
         /// 匹配正整数
@@ -82,7 +82,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsUint(string input)
         {
-            return IsMatch(@"^[0-9]*[1-9][0-9]*$", input);
+            return IsMatch("^[0-9]*[1-9][0-9]*$", input);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsEnglisCh(string input)
         {
-            return IsMatch(@"^[A-Za-z]+$", input);
+            return IsMatch("^[A-Za-z]+$", input);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsEmail(string input)
         {
-            string pattern = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            string pattern = "^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([\\w-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
             return IsMatch(pattern, input);
         }
 
@@ -113,7 +113,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsNumAndEnCh(string input)
         {
-            return IsMatch(@"^[A-Za-z0-9]+$", input);
+            return IsMatch("^[A-Za-z0-9]+$", input);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static bool IsURL(string input)
         {
-            string pattern = @"^[a-zA-Z]+://(\w+(-\w+)*)(\.(\w+(-\w+)*))*(\?\S*)?$";
+            string pattern = "^[a-zA-Z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\S*)?$";
             return IsMatch(pattern, input);
         }
 
@@ -138,7 +138,7 @@ namespace DotNet.Utilities
 
             for (int i = 0; i < IPs.Length; i++)
             {
-                if (!IsMatch(@"^\d+$", IPs[i]))
+                if (!IsMatch("^\\d+$", IPs[i]))
                 {
                     return false;
                 }
@@ -171,12 +171,12 @@ namespace DotNet.Utilities
             }
             else if (count == 0)
             {
-                pattern = @"^([\da-f]{1,4}:){7}[\da-f]{1,4}$";
+                pattern = "^([\\da-f]{1,4}:){7}[\\da-f]{1,4}$";
                 return IsMatch(pattern, input);
             }
             else
             {
-                pattern = @"^([\da-f]{1,4}:){0,5}::([\da-f]{1,4}:){0,5}[\da-f]{1,4}$";
+                pattern = "^([\\da-f]{1,4}:){0,5}::([\\da-f]{1,4}:){0,5}[\\da-f]{1,4}$";
                 return IsMatch(pattern, input);
             }
         }
@@ -189,7 +189,7 @@ namespace DotNet.Utilities
         /// <returns>返回字符串的长度</returns>
         public static int GetCount(string input)
         {
-            return Regex.Replace(input, @"[\u4e00-\u9fa5/g]", "aa").Length;
+            return Regex.Replace(input, "[\\u4e00-\\u9fa5/g]", "aa").Length;
         }
 
         /// <summary>

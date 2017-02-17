@@ -54,7 +54,7 @@ namespace DotNet.Utilities
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.WriteError(ex);
+                    WriteLogHelper.WriteError(ex);
                     throw;
                 }
             }
@@ -109,7 +109,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
         }
@@ -145,7 +145,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
             return filePathList;
@@ -172,7 +172,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
             return filePathList;
@@ -208,7 +208,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
         }
@@ -249,7 +249,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
 
@@ -286,7 +286,7 @@ namespace DotNet.Utilities
                 }
                 catch (Exception ex)
                 {
-                    WriteLog.WriteError(ex);
+                    WriteLogHelper.WriteError(ex);
                     throw;
                 }
 
@@ -331,7 +331,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
         }

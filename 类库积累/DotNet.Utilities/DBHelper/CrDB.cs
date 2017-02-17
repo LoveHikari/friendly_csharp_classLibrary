@@ -237,13 +237,13 @@ namespace DotNet.Utilities.DBHelper
                 else
                 {
                     Exception ex = new Exception("没有找到指定连接字符串！", new NullReferenceException());
-                    WriteLog.WriteError(ex);
+                    WriteLogHelper.WriteError(ex);
                     throw ex;
                 }
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw ex;
             }
         }
@@ -359,7 +359,7 @@ namespace DotNet.Utilities.DBHelper
             {
                 iserror = true;
                 strerror = ex.Message;
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
             }
             finally
             {
@@ -394,7 +394,7 @@ namespace DotNet.Utilities.DBHelper
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw new Exception(ex.Message);
             }
             finally
@@ -455,7 +455,7 @@ namespace DotNet.Utilities.DBHelper
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw ex;
             }
             finally
@@ -517,7 +517,7 @@ namespace DotNet.Utilities.DBHelper
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw ex;
             }
             finally
@@ -577,7 +577,7 @@ namespace DotNet.Utilities.DBHelper
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw ex;
             }
             finally

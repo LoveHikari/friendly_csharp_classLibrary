@@ -438,7 +438,7 @@ namespace DotNet.Utilities
 
                 catch (Exception ex)
                 {
-                    WriteLog.WriteError(ex);
+                    WriteLogHelper.WriteError(ex);
                     return false;
                 }
             }
@@ -461,7 +461,7 @@ namespace DotNet.Utilities
 
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 return false;
 
             }

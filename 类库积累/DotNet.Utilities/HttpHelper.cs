@@ -403,16 +403,16 @@ namespace DotNet.Utilities
             catch (WebException wex)
             {
                 response = (HttpWebResponse)wex.Response;
-                WriteLog.WriteError(wex);
+                WriteLogHelper.WriteError(wex);
             }
             catch (SocketException sex)
             {
-                WriteLog.WriteError(sex);
+                WriteLogHelper.WriteError(sex);
                 throw;
             }
             catch (Exception ex)
             {
-                WriteLog.WriteError(ex);
+                WriteLogHelper.WriteError(ex);
                 throw;
             }
             string strHtml;

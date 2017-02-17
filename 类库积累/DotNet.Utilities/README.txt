@@ -1,4 +1,4 @@
-DBHelper说明：
+DBHelper2说明：
 数据库连接默认在根目录下Intel\dell.xml下，dell文件格式为<?xml version="1.0" encoding="utf-8"?>
                                                               <SQlConn>
                                                                  <local ConnStr="server=121.41.101.4,5533;uid=kidsnet;pwd=1D#g2!hj3kYt4rwg5r#o6hfd7sr@;database=nynet" providerName="System.Data.SqlClient" />

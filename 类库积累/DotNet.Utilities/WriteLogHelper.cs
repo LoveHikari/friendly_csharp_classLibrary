@@ -20,7 +20,7 @@ namespace DotNet.Utilities
     /// <summary>
     /// 输出log
     /// </summary>
-    public class WriteLog
+    public class WriteLogHelper
     {
         private static object locker = new object();
         /// <summary>

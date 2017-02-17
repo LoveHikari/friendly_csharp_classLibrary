@@ -41,7 +41,7 @@
       <HintPath>..\引用dll\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\引用dll\MySql\v4.0\MySql.Data.dll</HintPath>
+      <HintPath>..\引用dll\MySql\v4.5.1\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Spire.XLS">
       <HintPath>..\引用dll\Spire.XLS.7.10.79\lib\net40-client\Spire.XLS.dll</HintPath>
@@ -112,7 +112,7 @@
     <Compile Include="ThePi.cs" />
     <Compile Include="ThreadPoolHelper.cs" />
     <Compile Include="WaterImageManage.cs" />
-    <Compile Include="WriteLog.cs" />
+    <Compile Include="WriteLogHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
