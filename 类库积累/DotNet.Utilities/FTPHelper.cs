@@ -199,7 +199,7 @@ namespace DotNet.Utilities
             string url = "ftp://" + _ftpServerIp + "/" + requedstPath + "/";  //目标路径
             List<string> list = new List<string>();
             FtpWebRequest req = (FtpWebRequest)WebRequest.Create(new Uri(url));
-            req.Credentials = new NetworkCredential(_ftpPassword, _ftpPassword);
+            req.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
             req.Method = WebRequestMethods.Ftp.ListDirectory;
             req.UseBinary = true;
             req.UsePassive = true;

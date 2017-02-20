@@ -2,6 +2,7 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/类库积累/ConsoleTest01
+/类库积累/ConsoleTest01/obj
+/类库积累/ConsoleTest01/bin
 /类库积累/DotNet.Utilities/obj
 /类库积累/DotNet.Utilities/bin

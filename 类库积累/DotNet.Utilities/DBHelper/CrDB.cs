@@ -27,7 +27,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         public string ConnectionString { get { return _connectionString; } set { _connectionString = value; } }
         /// <summary>
-        /// 使该类不可new
+        /// 构造函数，使该类不可new
         /// </summary>
         protected CrDB()
         {
@@ -296,6 +296,36 @@ namespace DotNet.Utilities.DBHelper
             _providerName = stringSettings.ProviderName;
             _connectionString = stringSettings.ConnectionString;
         }
+
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        private void Dispose()
+        {
+            switch (_providerName)
+            {
+                case "System.Data.SqlClient":
+
+                    break;
+                case "System.Data.OracleClient":
+
+                    break;
+                case "System.Data.OleDb":
+
+                    break;
+                case "MySql.Data.MySqlClient":
+
+                    break;
+                case "System.Data.SQLite":
+                    System.Data.SQLite.SQLiteConnection.ClearAllPools();//清除連接池之後，數據庫文件才能使用
+                    GC.Collect();
+                    System.Threading.Thread.Sleep(10);//等待连接池关闭
+                    break;
+                default:
+
+                    break;
+            }
+        }
         #endregion
 
         #region List<DBParam>
@@ -400,6 +430,7 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                this.Dispose();
             }
             return result;
         }
@@ -461,6 +492,7 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                this.Dispose();
             }
             return result;
         }
@@ -523,6 +555,7 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                this.Dispose();
             }
 
         }
@@ -574,6 +607,7 @@ namespace DotNet.Utilities.DBHelper
             try
             {
                 dataAdapter.Fill(result);
+                
             }
             catch (Exception ex)
             {
@@ -582,8 +616,8 @@ namespace DotNet.Utilities.DBHelper
             }
             finally
             {
-                DbConnection connection = CreateConnection();
-                connection.Close();
+                ((DbDataAdapter)dataAdapter).SelectCommand.Connection.Close();
+                this.Dispose();
             }
             return result;
         }
