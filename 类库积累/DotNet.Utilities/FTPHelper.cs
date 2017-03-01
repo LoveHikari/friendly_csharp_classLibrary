@@ -36,7 +36,7 @@ namespace DotNet.Utilities
         #endregion
 
         /// <summary>
-        /// 连接FTP服务器
+        /// 构造函数
         /// </summary>
         /// <param name="ftpServerIp">FTP连接地址，可以带端口</param>
         /// <param name="ftpRemotePath">指定FTP连接成功后的当前目录, 如果不指定即默认为根目录，前后不需要/</param>
@@ -52,7 +52,7 @@ namespace DotNet.Utilities
         }
 
         /// <summary>
-        /// 上传
+        /// 上传文件到当前目录
         /// </summary>
         /// <param name="localFilePath">本地文件路径</param>
         public void Upload(string localFilePath)
@@ -90,9 +90,8 @@ namespace DotNet.Utilities
 
         }
 
-
         /// <summary>
-        /// 下载
+        /// 下载当前目录的文件
         /// </summary>
         /// <param name="localFileDir">要保存到的本地文件目录</param>
         /// <param name="fileName">要下载文件名</param>
@@ -130,7 +129,7 @@ namespace DotNet.Utilities
         }
 
         /// <summary>
-        /// 删除文件
+        /// 删除当前目录的文件
         /// </summary>
         /// <param name="fileName">文件名</param>
         public void Delete(string fileName)
@@ -141,14 +140,17 @@ namespace DotNet.Utilities
                 reqFtp.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
                 reqFtp.Method = WebRequestMethods.Ftp.DeleteFile;
                 reqFtp.KeepAlive = false;
-                FtpWebResponse response = (FtpWebResponse)reqFtp.GetResponse();
-                long size = response.ContentLength;
-                Stream datastream = response.GetResponseStream();
-                StreamReader sr = new StreamReader(datastream);
-                string result = sr.ReadToEnd();
-                sr.Close();
-                datastream.Close();
-                response.Close();
+                using (FtpWebResponse response = (FtpWebResponse)reqFtp.GetResponse())
+                {
+                    long size = response.ContentLength;
+                    using (Stream datastream = response.GetResponseStream())
+                    {
+                        using (StreamReader sr = new StreamReader(datastream))
+                        {
+                            string result = sr.ReadToEnd();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -230,10 +232,9 @@ namespace DotNet.Utilities
         public string[] GetFileList()
         {
             StringBuilder result = new StringBuilder();
-            FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(_ftpUri));
+                FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(_ftpUri));
                 reqFTP.UseBinary = true;
                 reqFTP.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
                 reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
@@ -245,7 +246,9 @@ namespace DotNet.Utilities
 
                     if (line.IndexOf("<DIR>",StringComparison.CurrentCultureIgnoreCase) == -1)
                     {
-                        result.Append(Regex.Match(line, @"[\S]+ [\S]+", RegexOptions.IgnoreCase).Value.Split(' ')[1]);
+                        string[] ss = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        result.Append(ss[ss.GetUpperBound(0)]);
+                        //result.Append(Regex.Match(line, @"[\S]+ [\S]+", RegexOptions.IgnoreCase).Value.Split(' ')[1]);
                         result.Append("\n");
                     }
                     line = reader.ReadLine();
@@ -277,76 +280,85 @@ namespace DotNet.Utilities
             return false;
         }
 
-        /// <summary>  
-        /// 创建文件夹  
-        /// </summary>   
+        /// <summary>
+        /// 在当前目录创建文件夹
+        /// </summary>
+        /// <param name="dirName">文件夹名</param>
         public void MakeDir(string dirName)
         {
-            FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(_ftpUri + dirName));
+                FtpWebRequest reqFTP = (FtpWebRequest) FtpWebRequest.Create(new Uri(_ftpUri + dirName));
                 reqFTP.Method = WebRequestMethods.Ftp.MakeDirectory;
                 reqFTP.UseBinary = true;
                 reqFTP.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
-                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                FtpWebResponse response = (FtpWebResponse) reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 ftpStream.Close();
                 response.Close();
             }
             catch (Exception ex)
-            { }
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        /// <summary>  
-        /// 获取指定文件大小  
-        /// </summary>  
+        /// <summary>
+        /// 获取当前目录指定文件大小
+        /// </summary>
+        /// <param name="filename">文件名</param>
         public long GetFileSize(string filename)
         {
-            FtpWebRequest reqFTP;
-            long fileSize = 0;
+            long fileSize;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(_ftpUri + filename));
+                FtpWebRequest reqFTP = (FtpWebRequest) FtpWebRequest.Create(new Uri(_ftpUri + filename));
                 reqFTP.Method = WebRequestMethods.Ftp.GetFileSize;
                 reqFTP.UseBinary = true;
                 reqFTP.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
-                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                FtpWebResponse response = (FtpWebResponse) reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 fileSize = response.ContentLength;
                 ftpStream.Close();
                 response.Close();
             }
             catch (Exception ex)
-            { }
+            {
+                throw new Exception(ex.Message);
+            }
             return fileSize;
         }
 
-        /// <summary>  
-        /// 更改文件名  
-        /// </summary> 
+        /// <summary>
+        /// 更改当前目录的文件的文件名  
+        /// </summary>
+        /// <param name="currentFilename">原文件名</param>
+        /// <param name="newFilename">新文件名</param>
         public void ReName(string currentFilename, string newFilename)
         {
-            FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(_ftpUri + currentFilename));
+                FtpWebRequest reqFTP = (FtpWebRequest) FtpWebRequest.Create(new Uri(_ftpUri + currentFilename));
                 reqFTP.Method = WebRequestMethods.Ftp.Rename;
                 reqFTP.RenameTo = newFilename;
                 reqFTP.UseBinary = true;
                 reqFTP.Credentials = new NetworkCredential(_ftpUserId, _ftpPassword);
-                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                FtpWebResponse response = (FtpWebResponse) reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 ftpStream.Close();
                 response.Close();
             }
             catch (Exception ex)
-            { }
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        /// <summary>  
-        /// 移动文件  
-        /// </summary>  
+        /// <summary>
+        /// 移动当前目录的文件到指定目录
+        /// </summary>
+        /// <param name="currentFilename">原文件名</param>
+        /// <param name="newDirectory">新目录</param>
         public void MovieFile(string currentFilename, string newDirectory)
         {
             ReName(currentFilename, newDirectory);

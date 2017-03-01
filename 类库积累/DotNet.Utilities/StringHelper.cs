@@ -146,6 +146,17 @@ namespace DotNet.Utilities
             return regsql.Replace(value, m => string.Empty);
         }
         /// <summary>
+        /// 基于字符串将字符串拆分为多个子字符串。可以指定子字符串是否包含空数组元素。
+        /// </summary>
+        /// <param name="value">字符串</param>
+        /// <param name="separator">分隔此字符串中子字符串的字符串数组、不包含分隔符的空数组或 null。</param>
+        /// <param name="options">要省略返回的数组中的空数组元素，则为 StringSplitOptions.RemoveEmptyEntries；要包含返回的数组中的空数组元素，则为 StringSplitOptions.None。</param>
+        /// <returns>一个数组，其元素包含此字符串中的子字符串，这些子字符串由 separator 中的一个或多个字符串分隔。 有关详细信息，请参阅“备注”部分。</returns>
+        public static string[] Split(this string value, string separator, StringSplitOptions options = StringSplitOptions.None)
+        {
+            return value.Split(new string[] { separator }, options);
+        }
+        /// <summary>
         /// 获取左边指定位数的字符串
         /// </summary>
         /// <param name="value">字符串</param>

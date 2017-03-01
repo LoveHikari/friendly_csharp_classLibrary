@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Threading;
-using DotNet.Utilities;
 using DotNet.Utilities.DBHelper;
 
 namespace ConsoleTest01
@@ -19,11 +10,11 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-            CrDB db  = new DBHelper();
-            string sql = "SELECT * FROM cesi";
-             db.ExecuteScalar(sql);
-            db.Dispose();
-            System.Console.Out.WriteLine("OK");
+            CrDB db = new DBHelper();
+            db.ExecuteNonQuery("select * from cesi");
+            //File.Delete("data.sdb");
+            
+            System.Console.WriteLine("OK");
             System.Console.ReadKey();
 
         }

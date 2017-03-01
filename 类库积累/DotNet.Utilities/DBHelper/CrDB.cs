@@ -319,7 +319,7 @@ namespace DotNet.Utilities.DBHelper
                 case "System.Data.SQLite":
                     System.Data.SQLite.SQLiteConnection.ClearAllPools();//清除連接池之後，數據庫文件才能使用
                     GC.Collect();
-                    System.Threading.Thread.Sleep(10);//等待连接池关闭
+                    GC.WaitForPendingFinalizers();
                     break;
                 default:
 
@@ -430,6 +430,7 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                command.Connection.Dispose();
                 this.Dispose();
             }
             return result;
@@ -492,6 +493,7 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                command.Connection.Dispose();
                 this.Dispose();
             }
             return result;
@@ -545,7 +547,6 @@ namespace DotNet.Utilities.DBHelper
             {
                 command.Connection.Open();
                 result = command.ExecuteReader(CommandBehavior.CloseConnection);
-                return result;
             }
             catch (Exception ex)
             {
@@ -555,9 +556,10 @@ namespace DotNet.Utilities.DBHelper
             finally
             {
                 command.Connection.Close();
+                command.Connection.Dispose();
                 this.Dispose();
             }
-
+            return result;
         }
         #endregion
 
@@ -616,7 +618,7 @@ namespace DotNet.Utilities.DBHelper
             }
             finally
             {
-                ((DbDataAdapter)dataAdapter).SelectCommand.Connection.Close();
+                ((DbDataAdapter)dataAdapter).Dispose();
                 this.Dispose();
             }
             return result;
