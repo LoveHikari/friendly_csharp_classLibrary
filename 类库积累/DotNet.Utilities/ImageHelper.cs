@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using ThoughtWorks.QRCode.Codec;
 
 /******************************************************************************************************************
  * 
@@ -237,8 +238,7 @@ namespace DotNet.Utilities
             }
             catch (Exception ex)
             {
-                WriteLogHelper.WriteError(ex);
-                throw;
+                throw ex;
             }
         }
         /// <summary>
@@ -292,9 +292,9 @@ namespace DotNet.Utilities
 
                 return b;
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
         /// <summary>
@@ -326,9 +326,9 @@ namespace DotNet.Utilities
                 // 返回缩放图片
                 return image;
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
         /// <summary>
@@ -362,9 +362,9 @@ namespace DotNet.Utilities
                 // 缩放并返回处理后的图片
                 return ResizeImage(image, width, height);
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
         #endregion
@@ -379,7 +379,7 @@ namespace DotNet.Utilities
         /// <param name="startY">开始坐标Y</param>
         /// <param name="iWidth">宽度</param>
         /// <param name="iHeight">高度</param>
-        /// <returns>剪裁后的Bitmap</returns>
+        /// <returns>剪裁后的Bitmap，失败返回null</returns>
         public static Bitmap KiCut(Bitmap b, int startX, int startY, int iWidth, int iHeight)
         {
             if (b == null)
@@ -415,13 +415,59 @@ namespace DotNet.Utilities
 
                 return bmpOut;
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
         #endregion
+        /// <summary>
+        /// 将图片对象保存为图片文件
+        /// </summary>
+        /// <param name="image">图片对象</param>
+        /// <param name="filePath">要保存的路径，可以是绝对路径或相对路径</param>
+        /// <param name="imageFormat">要保存的图片格式，默认为jpg</param>
+        public static void SaveImage(Bitmap image,string filePath ,ImageFormat imageFormat= null)
+        {
+            string dir = System.IO.Path.GetDirectoryName(filePath);
+            //如果文件夹不存在，则创建
+            if (!Directory.Exists(dir))Directory.CreateDirectory(dir);
 
+            System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+            image.Save(fs, imageFormat??ImageFormat.Jpeg);
+            fs.Close();
+            image.Dispose();
+        }
+
+        #region 生成二维码 
+
+        /// <summary>
+        /// 生成二维码图片
+        /// </summary>
+        /// <param name="strCode">要生成的文字或者数字，支持中文。如： "4408810820 深圳－广州" 或者：4444444444</param>
+        /// <param name="size">大小尺寸</param>
+        /// <returns>二维码图片</returns>
+        /// <remarks>http://www.cnblogs.com/judy0605/p/3340350.html http://www.cnblogs.com/jys509/p/4592539.html http://blog.csdn.net/lybwwp/article/details/18444369 </remarks>
+        public Bitmap CreateQrCode(string strCode, int size)
+        {
+            //创建二维码生成类  
+            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+            //设置编码模式  ,三种模式：BYTE ，ALPHA_NUMERIC，NUMERIC
+            qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+            //设置编码测量度(每个小方格的宽度)，比如4 
+            qrCodeEncoder.QRCodeScale = size;
+            //设置编码版本(二维码版本号)，比如8
+            //字符串较长的情况下，用ThoughtWorks.QRCode生成二维码时出现“索引超出了数组界限”的错误。
+            //解决方法：将 QRCodeVersion 改为0。
+            qrCodeEncoder.QRCodeVersion = 0;
+            //设置编码错误纠正，大小：L M Q H
+            qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+            //生成二维码图片
+            System.Drawing.Bitmap image = qrCodeEncoder.Encode(strCode);
+            return image;
+        }
+
+        #endregion
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Text;
 using System.Text.RegularExpressions;
 
 /******************************************************************************************************************
@@ -30,7 +29,7 @@ namespace DotNet.Utilities
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns></returns>
-        public static string LCS(string value1, string value2)
+        public static string Lcs(string value1, string value2)
         {
             if (string.IsNullOrEmpty(value1)
                 || string.IsNullOrEmpty(value2))
@@ -81,7 +80,7 @@ namespace DotNet.Utilities
             byte[] tempstr = ascii.GetBytes(inputstr);
             for (int i = 0; i < tempstr.Length; i++)
             {
-                if ((int)tempstr[i] == 63)
+                if (tempstr[i] == 63)
                     tempLen += 2;
                 else
                     tempLen += 1;
@@ -106,7 +105,7 @@ namespace DotNet.Utilities
             byte[] str = ascii.GetBytes(inputString);
             for (int i = 0; i < str.Length; i++)
             {
-                if ((int)str[i] == 63)
+                if (str[i] == 63)
                     tempLen += 2;
                 else
                     tempLen += 1;
@@ -425,7 +424,7 @@ namespace DotNet.Utilities
                 }
             }
             int result;
-            if (int.TryParse(num.ToString(), out result))
+            if (int.TryParse(num, out result))
                 return result;
             return 0;
         }
