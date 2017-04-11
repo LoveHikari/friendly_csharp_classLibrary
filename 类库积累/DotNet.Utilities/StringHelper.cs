@@ -161,7 +161,7 @@ namespace DotNet.Utilities
         /// <param name="value">字符串</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public static string SplitLeft(this string value, int length)
+        public static string LastLeft(this string value, int length)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -171,7 +171,6 @@ namespace DotNet.Utilities
             {
                 return value;
             }
-
             return value.Substring(0, length);
         }
         /// <summary>
@@ -180,7 +179,7 @@ namespace DotNet.Utilities
         /// <param name="value">字符串</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public static string SplitRight(this string value, int length)
+        public static string LastRight(this string value, int length)
         {
             if (string.IsNullOrEmpty(value))
             {

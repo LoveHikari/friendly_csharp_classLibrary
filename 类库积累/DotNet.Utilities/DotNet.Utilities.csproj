@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FiddlerCore3dot5">
+      <HintPath>..\引用dll\Fiddler\FiddlerCore3dot5.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\引用dll\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -84,7 +87,9 @@
     <Compile Include="DBHelper\MySqlHelper.cs" />
     <Compile Include="DEncryptUtils.cs" />
     <Compile Include="DistinctHelper.cs" />
+    <Compile Include="DynamicFactory.cs" />
     <Compile Include="ExChangeChinese.cs" />
+    <Compile Include="FiddlerListeners.cs" />
     <Compile Include="FTPHelper.cs" />
     <Compile Include="HttpDownload.cs" />
     <Compile Include="ImageHelper.cs" />

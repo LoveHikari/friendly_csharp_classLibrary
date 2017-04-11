@@ -188,7 +188,7 @@ namespace DotNet.Utilities
         /// <typeparam name="T">类型</typeparam>
         /// <param name="obj">匿名对象</param>
         /// <param name="type">匿名类型</param>
-        /// <para>Cast(new { Name = "Tom", Age = 25 }, ew { Name = "", Age = 0 });</para>
+        /// <para>Cast(new { Name = "Tom", Age = 25 }, new { Name = "", Age = 0 });</para>
         /// <returns></returns>
         public static T Cast<T>(object obj, T type)
         {
