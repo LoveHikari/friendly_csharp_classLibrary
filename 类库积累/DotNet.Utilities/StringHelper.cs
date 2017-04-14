@@ -126,7 +126,7 @@ namespace DotNet.Utilities
                 outputString += "…";
             return outputString;
         }
-        
+
         /// <summary>
         /// 过滤Sql查询关键词中的敏感词汇
         /// </summary>
@@ -404,9 +404,26 @@ namespace DotNet.Utilities
             }
             return new string(c);
         }
-        #endregion 
+        #endregion
+
+        #region 类型转换
         /// <summary>
-        /// 提取出所有数字，并转换为int
+        /// 转换为等效的32位有符号整数，转换失败返回指定的数字，为null时返回0
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="i">指定转换失败时返回的值，默认为0</param>
+        /// <returns></returns>
+        public static int ToInt32(this string input, int i = 0)
+        {
+            int result;
+            if (input == null)
+                return 0;
+            if (int.TryParse(input, out result))
+                return result;
+            return i;
+        }
+        /// <summary>
+        /// 提取出所有数字，并转换为int，失败返回0
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -447,14 +464,46 @@ namespace DotNet.Utilities
         /// <param name="s"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this string s,IFormatProvider provider)
+        public static DateTime ToDateTime(this string s, IFormatProvider provider)
         {
             DateTime result;
-            if (DateTime.TryParse(s, provider,DateTimeStyles.None,  out result))
+            if (DateTime.TryParse(s, provider, DateTimeStyles.None, out result))
             {
                 return result;
             }
             return DateTime.MinValue;
         }
+        /// <summary>
+        /// 转换为decimal类型，失败返回0
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="d">指定转换失败时返回的值,默认为0</param>
+        /// <returns></returns>
+        public static decimal ToDecimal(this string s, decimal d = 0)
+        {
+            decimal result;
+            if (decimal.TryParse(s, out result))
+            {
+                return result;
+            }
+            return d;
+        }
+        /// <summary>
+        /// 转换为double类型，失败返回0
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="d">指定转换失败时返回的值,默认为0</param>
+        /// <returns></returns>
+        public static double ToDouble(this string s, double d = 0)
+        {
+            double result;
+            if (double.TryParse(s, out result))
+            {
+                return result;
+            }
+            return d;
+        }
+        #endregion
+
     }
 }

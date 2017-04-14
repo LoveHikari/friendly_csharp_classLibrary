@@ -16,9 +16,9 @@
 namespace DotNet.Utilities
 {
     /// <summary>
-    /// Object 帮助类
+    /// Object 扩展类
     /// </summary>
-    public static class ObjectHelper
+    public static class ObjectExtensions
     {
         /// <summary>
         /// 获取字符串 不返回null值
@@ -42,36 +42,6 @@ namespace DotNet.Utilities
             if (value == null || value == System.DBNull.Value)
                 return s;
             return value.ToString();
-        }
-        /// <summary>
-        /// 转换为等效的32位有符号整数，转换失败返回0
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static int ToInt32(this object input)
-        {
-            int result;
-            if (input == null || input == System.DBNull.Value)
-                return 0;
-            if (int.TryParse(input.ToString(), out result))
-                return result;
-            return 0;
-
-        }
-        /// <summary>
-        /// 转换为等效的32位有符号整数，转换失败返回指定的数字
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="i">指定转换失败时返回的值</param>
-        /// <returns></returns>
-        public static int ToInt32(this object input, int i)
-        {
-            int result;
-            if (input == null || input == System.DBNull.Value)
-                return 0;
-            if (int.TryParse(input.ToString(), out result))
-                return result;
-            return i;
         }
     }
 }
