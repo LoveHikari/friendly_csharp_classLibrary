@@ -43,5 +43,50 @@ namespace DotNet.Utilities
                 return s;
             return value.ToString();
         }
+        /// <summary>
+        /// 转换为等效的32位有符号整数，转换失败返回指定的数字，为null时返回0
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="i">指定转换失败时返回的值，默认为0</param>
+        /// <returns></returns>
+        public static int ToInt32(this object input, int i = 0)
+        {
+            int result;
+            if (input == null)
+                return 0;
+            if (int.TryParse(input.ToString(), out result))
+                return result;
+            return i;
+        }
+        /// <summary>
+        /// 转换为decimal类型，失败返回0
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="d">指定转换失败时返回的值,默认为0</param>
+        /// <returns></returns>
+        public static decimal ToDecimal(this object s, decimal d = 0)
+        {
+            decimal result;
+            if (decimal.TryParse(s.ToString(), out result))
+            {
+                return result;
+            }
+            return d;
+        }
+        /// <summary>
+        /// 转换为double类型，失败返回0
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="d">指定转换失败时返回的值,默认为0</param>
+        /// <returns></returns>
+        public static double ToDouble(this object s, double d = 0)
+        {
+            double result;
+            if (double.TryParse(s.ToString(), out result))
+            {
+                return result;
+            }
+            return d;
+        }
     }
 }
