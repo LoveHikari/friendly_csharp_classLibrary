@@ -358,7 +358,7 @@ namespace DotNet.Utilities
 
                 catch (Exception ex)
                 {
-                    WriteLogHelper.WriteError(ex);
+                    LogHelper.WriteError(ex);
                     return false;
                 }
             }
@@ -387,7 +387,7 @@ namespace DotNet.Utilities
 
             catch (Exception ex)
             {
-                WriteLogHelper.WriteError(ex);
+                LogHelper.WriteError(ex);
                 return false;
 
             }

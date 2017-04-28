@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\引用dll\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="FiddlerCore3dot5">
       <HintPath>..\引用dll\Fiddler\FiddlerCore3dot5.dll</HintPath>
     </Reference>
@@ -78,6 +81,7 @@
     <Compile Include="CodeCommon.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="DatabaseExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DBHelper\DBParam.cs" />
     <Compile Include="DBHelper\CrDB.cs" />
@@ -96,7 +100,7 @@
     <Compile Include="IniHelper.cs" />
     <Compile Include="IntegerHelper.cs" />
     <Compile Include="JsonHelper.cs" />
-    <Compile Include="LogHelper.cs" />
+    <Compile Include="Log4NetHelper.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
@@ -124,7 +128,7 @@
     <Compile Include="ThePi.cs" />
     <Compile Include="ThreadPoolHelper.cs" />
     <Compile Include="WaterImageManage.cs" />
-    <Compile Include="WriteLogHelper.cs" />
+    <Compile Include="LogHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
