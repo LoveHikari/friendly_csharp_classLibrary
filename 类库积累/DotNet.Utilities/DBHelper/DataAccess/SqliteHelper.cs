@@ -2,50 +2,58 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SQLite;
+using System.Threading;
 
 /******************************************************************************************************************
 * 
 * 
-* 标  题：sql server数据库操作类(版本：Version1.0.0)
+* 标  题：sqlite数据库操作类(版本：Version1.0.0)
 * 作  者：YuXiaoWei
-* 日  期：2016/05/10
+* 日  期：2016/10/24
 * 修  改：
 * 参  考： 
 * 说  明： 暂无...
-* 备  注： 配置节添加示例：<connectionStrings><add name="ConnString" connectionString="server=121.41.101.4,5533;uid=kidsnet;pwd=1D#g2!hj3kYt4rwg5r#o6hfd7sr@;database=nynet" /></connectionStrings>
+* 备  注： 配置节添加示例：<connectionStrings><add name="ConnString" connectionString="Data Source=E:\App_Data\data.db;Pooling=true;FailIfMissing=false;" /></connectionStrings>
 * 
 * 
 * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper
+namespace DotNet.Utilities.DBHelper.DataAccess
 {
     /// <summary>
-    /// sql server数据库操作类
+    /// sqlite数据库操作类
     /// </summary>
-    public sealed class SqlHelper
+    public sealed class SqliteHelper
     {
         #region Field
 
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         private static string ConnString = "";
         private bool isCommon;
-        private SqlCommand command;
-        public static readonly SqlHelper Instance = new SqlHelper(true);//公共实例
-
+        private SQLiteCommand command;
+        /// <summary>
+        /// 公共实例
+        /// </summary>
+        public static readonly SqliteHelper Instance = new SqliteHelper(true);//公共实例
+        private static readonly object obj = new object();
         #endregion
 
         #region Constructor
 
-        private SqlHelper(bool isCommon)
+        private SqliteHelper(bool isCommon)
         {
             ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;//数据库连接字符串
             if (!isCommon)
             {
-                this.command = new SqlCommand();
+                this.command = new SQLiteCommand();
             }
             this.isCommon = isCommon;
         }
-        public SqlHelper(string connString)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="connString">config文件中的配置节名称</param>
+        public SqliteHelper(string connString)
         {
             ConnString = connString;
             this.isCommon = true;
@@ -68,7 +76,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public int ExecSqlNonQuery(string sql, params SqlParameter[] values)
+        public int ExecSqlNonQuery(string sql, params SQLiteParameter[] values)
         {
             return InnerExecNonQuery(sql, CommandType.Text, values);
         }
@@ -101,7 +109,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public object ExecSqlScalar(string sql, params SqlParameter[] values)
+        public object ExecSqlScalar(string sql, params SQLiteParameter[] values)
         {
             return InnerExecScalar(sql, CommandType.Text, values);
         }
@@ -125,7 +133,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的sql语句</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
-        public void ExecSqlReader(string sql, Action<SqlDataReader> block)
+        public void ExecSqlReader(string sql, Action<SQLiteDataReader> block)
         {
             InnerExecReader(sql, CommandType.Text, block);
         }
@@ -136,7 +144,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public void ExecSqlReader(string sql, Action<SqlDataReader> block, params SqlParameter[] values)
+        public void ExecSqlReader(string sql, Action<SQLiteDataReader> block, params SQLiteParameter[] values)
         {
             InnerExecReader(sql, CommandType.Text, block, values);
         }
@@ -147,7 +155,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="procName">要执行的存储过程的名字</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
         /// <param name="parameters">存储过程的参数</param>
-        public void ExecProcReader(string procName, Action<SqlDataReader> block, params object[] parameters)
+        public void ExecProcReader(string procName, Action<SQLiteDataReader> block, params object[] parameters)
         {
             InnerExecReader(procName, CommandType.StoredProcedure, block, parameters);
         }
@@ -161,7 +169,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的sql语句</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
-        public List<T> ExecSqlList<T>(string sql, Func<SqlDataReader, T> selector)
+        public List<T> ExecSqlList<T>(string sql, Func<SQLiteDataReader, T> selector)
         {
             return InnerExecList<T>(sql, CommandType.Text, selector);
         }
@@ -172,7 +180,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public List<T> ExecSqlList<T>(string sql, Func<SqlDataReader, T> selector, params SqlParameter[] values)
+        public List<T> ExecSqlList<T>(string sql, Func<SQLiteDataReader, T> selector, params SQLiteParameter[] values)
         {
             return InnerExecList<T>(sql, CommandType.Text, selector, values);
         }
@@ -183,7 +191,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="procName">要执行的存储过程的名字</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
         /// <param name="parameters">存储过程的参数</param>
-        public List<T> ExecProcList<T>(string procName, Func<SqlDataReader, T> selector, params object[] parameters)
+        public List<T> ExecProcList<T>(string procName, Func<SQLiteDataReader, T> selector, params object[] parameters)
         {
             return InnerExecList<T>(procName, CommandType.StoredProcedure, selector, parameters);
         }
@@ -206,7 +214,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public DataSet ExecSqlDataSet(string sql, params SqlParameter[] values)
+        public DataSet ExecSqlDataSet(string sql, params SQLiteParameter[] values)
         {
             return InnerExecDataSet(sql, CommandType.Text, values);
         }
@@ -239,23 +247,23 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public DataTable ExecSqlDataTable(string sql, params SqlParameter[] values)
+        public DataTable ExecSqlDataTable(string sql, params SQLiteParameter[] values)
         {
             return this.ExecSqlDataSet(sql, values).Tables[0];
         }
 
-        ///// <summary>
-        ///// 执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
-        ///// </summary>
-        ///// <param name="storedProcName">存储过程名</param>
-        ///// <param name="parameters">存储过程参数</param>
-        ///// <returns>SqlDataReader</returns>
-        public static SqlDataReader RunProcedure(string storedProcName, IDataParameter[] parameters)
+        /// <summary>
+        /// 执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+        /// </summary>
+        /// <param name="storedProcName">存储过程名</param>
+        /// <param name="parameters">存储过程参数</param>
+        /// <returns>SqlDataReader</returns>
+        public static SQLiteDataReader RunProcedure(string storedProcName, IDataParameter[] parameters)
         {
-            SqlConnection connection = new SqlConnection(ConnString);
-            SqlDataReader returnReader;
+            SQLiteConnection connection = new SQLiteConnection(ConnString);
+            SQLiteDataReader returnReader;
             connection.Open();
-            SqlCommand command = BuildQueryCommand(connection, storedProcName, parameters);
+            SQLiteCommand command = BuildQueryCommand(connection, storedProcName, parameters);
             command.CommandType = CommandType.StoredProcedure;
             returnReader = command.ExecuteReader(CommandBehavior.CloseConnection);
             return returnReader;
@@ -271,11 +279,11 @@ namespace DotNet.Utilities.DBHelper
         /// <returns>DataSet</returns>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName)
         {
-            using (SqlConnection connection = new SqlConnection(ConnString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnString))
             {
                 DataSet dataSet = new DataSet();
                 connection.Open();
-                SqlDataAdapter sqlDA = new SqlDataAdapter();
+                SQLiteDataAdapter sqlDA = new SQLiteDataAdapter();
                 sqlDA.SelectCommand = BuildQueryCommand(connection, storedProcName, parameters);
                 sqlDA.Fill(dataSet, tableName);
                 connection.Close();
@@ -293,11 +301,11 @@ namespace DotNet.Utilities.DBHelper
         /// <returns>DataSet</returns>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName, int Times)
         {
-            using (SqlConnection connection = new SqlConnection(ConnString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnString))
             {
                 DataSet dataSet = new DataSet();
                 connection.Open();
-                SqlDataAdapter sqlDA = new SqlDataAdapter();
+                SQLiteDataAdapter sqlDA = new SQLiteDataAdapter();
                 sqlDA.SelectCommand = BuildQueryCommand(connection, storedProcName, parameters);
                 sqlDA.SelectCommand.CommandTimeout = Times;
                 sqlDA.Fill(dataSet, tableName);
@@ -313,11 +321,11 @@ namespace DotNet.Utilities.DBHelper
         ///// <param name="storedProcName">存储过程名</param>
         ///// <param name="parameters">存储过程参数</param>
         ///// <returns>SqlCommand</returns>
-        private static SqlCommand BuildQueryCommand(SqlConnection connection, string storedProcName, IDataParameter[] parameters)
+        private static SQLiteCommand BuildQueryCommand(SQLiteConnection connection, string storedProcName, IDataParameter[] parameters)
         {
-            SqlCommand command = new SqlCommand(storedProcName, connection);
+            SQLiteCommand command = new SQLiteCommand(storedProcName, connection);
             command.CommandType = CommandType.StoredProcedure;
-            foreach (SqlParameter parameter in parameters)
+            foreach (SQLiteParameter parameter in parameters)
             {
                 if (parameter != null)
                 {
@@ -353,18 +361,18 @@ namespace DotNet.Utilities.DBHelper
         /// 执行批量Sql语句。
         /// </summary>
         /// <param name="batch">要执行的批量Sql代码块（方法）/委托/Lambda语句块</param>
-        public void ExecBatch(Action<SqlHelper> batch)
+        public void ExecBatch(Action<SqliteHelper> batch)
         {
-            using (SqlConnection con = new SqlConnection(ConnString))
+            using (SQLiteConnection con = new SQLiteConnection(ConnString))
             {
-                SqlHelper actuator = new SqlHelper(false);
+                SqliteHelper actuator = new SqliteHelper(false);
                 actuator.command.Connection = con;
                 try
                 {
                     con.Open();
                     batch(actuator);
                 }
-                catch (SqlException)
+                catch (SQLiteException)
                 {
                     throw;
                 }
@@ -375,20 +383,20 @@ namespace DotNet.Utilities.DBHelper
         /// 执行事务代码。 
         /// </summary>
         /// <param name="block">要执行的事务代码块（方法）/委托/Lambda语句块</param>
-        public void ExecTransaction(Action<SqlHelper, SqlTransaction> block)
+        public void ExecTransaction(Action<SqliteHelper, SQLiteTransaction> block)
         {
-            using (SqlConnection con = new SqlConnection(ConnString))
+            using (SQLiteConnection con = new SQLiteConnection(ConnString))
             {
-                SqlHelper actuator = new SqlHelper(false);
+                SqliteHelper actuator = new SqliteHelper(false);
                 actuator.command.Connection = con;
                 try
                 {
                     con.Open();
-                    SqlTransaction tran = con.BeginTransaction();
+                    SQLiteTransaction tran = con.BeginTransaction();
                     actuator.command.Transaction = tran;
                     block(actuator, tran);
                 }
-                catch (SqlException)
+                catch (SQLiteException)
                 {
                     throw;
                 }
@@ -409,12 +417,12 @@ namespace DotNet.Utilities.DBHelper
             return InnerExecCommand<object>(text, type, "Scalar", null, null, values);
         }
 
-        private void InnerExecReader(string text, CommandType type, Action<SqlDataReader> block, params object[] values)
+        private void InnerExecReader(string text, CommandType type, Action<SQLiteDataReader> block, params object[] values)
         {
             InnerExecCommand<object>(text, type, "Reader", block, null, values);
         }
 
-        private List<T> InnerExecList<T>(string text, CommandType type, Func<SqlDataReader, T> selector, params object[] values)
+        private List<T> InnerExecList<T>(string text, CommandType type, Func<SQLiteDataReader, T> selector, params object[] values)
         {
             return InnerExecCommand<T>(text, type, "List", null, selector, values) as List<T>;
         }
@@ -424,16 +432,22 @@ namespace DotNet.Utilities.DBHelper
             return InnerExecCommand<object>(text, type, "DataSet", null, null, values) as DataSet;
         }
 
-        private object InnerExecCommand<T>(string text, CommandType type, string method, Action<SqlDataReader> block,
-            Func<SqlDataReader, T> selector, params object[] values)
+        private object InnerExecCommand<T>(string text, CommandType type, string method, Action<SQLiteDataReader> block,
+            Func<SQLiteDataReader, T> selector, params object[] values)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");
-            Func<SqlCommand, object> exec;
+            Func<SQLiteCommand, object> exec;
             switch (method)
             {
                 case "NonQuery":
-                    exec = c => c.ExecuteNonQuery();
+                    exec = c =>
+                    {
+                        Monitor.Enter(obj);
+                        int i = c.ExecuteNonQuery();
+                        Monitor.Exit(obj);
+                        return i;
+                    };
                     break;
                 case "Scalar":
                     exec = c => c.ExecuteScalar();
@@ -441,7 +455,7 @@ namespace DotNet.Utilities.DBHelper
                 case "Reader":
                     exec = c =>
                     {
-                        using (SqlDataReader reader = c.ExecuteReader())
+                        using (SQLiteDataReader reader = c.ExecuteReader())
                         {
                             block(reader);
                             return null;
@@ -451,7 +465,7 @@ namespace DotNet.Utilities.DBHelper
                 case "DataSet":
                     exec = c =>
                     {
-                        SqlDataAdapter adp = new SqlDataAdapter(c);
+                        SQLiteDataAdapter adp = new SQLiteDataAdapter(c);
                         DataSet ds = new DataSet();
                         adp.Fill(ds);
                         return ds;
@@ -461,7 +475,7 @@ namespace DotNet.Utilities.DBHelper
                     //List
                     exec = c =>
                     {
-                        using (SqlDataReader reader = c.ExecuteReader())
+                        using (SQLiteDataReader reader = c.ExecuteReader())
                         {
                             List<T> list = new List<T>();
                             while (reader.Read())
@@ -475,9 +489,9 @@ namespace DotNet.Utilities.DBHelper
             }
             if (this.isCommon)
             {
-                using (SqlConnection con = new SqlConnection(ConnString))
+                using (SQLiteConnection con = new SQLiteConnection(ConnString))
                 {
-                    SqlCommand cmd = new SqlCommand(text, con)
+                    SQLiteCommand cmd = new SQLiteCommand(text, con)
                     {
                         CommandType = type
                     };
@@ -487,7 +501,7 @@ namespace DotNet.Utilities.DBHelper
                         SetParams(cmd, values);
                         return exec(cmd);
                     }
-                    catch (SqlException)
+                    catch (SQLiteException)
                     {
                         throw;
                     }
@@ -503,26 +517,23 @@ namespace DotNet.Utilities.DBHelper
             }
         }
 
-        private void SetParams(SqlCommand cmd, params object[] values)
+        private void SetParams(SQLiteCommand cmd, params object[] values)
         {
             if (cmd.CommandType == CommandType.Text)
             {
                 for (int i = 0; i < values.Length; i++)
                 {
-                    ((SqlParameter)(values[i])).Value = ((SqlParameter)(values[i])).Value ?? DBNull.Value;
+                    ((SQLiteParameter)(values[i])).Value = ((SQLiteParameter)(values[i])).Value ?? DBNull.Value;
                 }
                 cmd.Parameters.AddRange(values);
             }
             else if (cmd.CommandType == CommandType.StoredProcedure)
             {
-                SqlCommandBuilder.DeriveParameters(cmd);
-                cmd.Parameters.RemoveAt(0);
                 for (int i = 0; i < cmd.Parameters.Count; i++)
                 {
                     cmd.Parameters[i].Value = values[i] ?? DBNull.Value;
                 }
             }
-            
         }
 
         # endregion

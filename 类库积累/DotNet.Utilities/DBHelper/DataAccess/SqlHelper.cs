@@ -2,50 +2,50 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 /******************************************************************************************************************
-     * 
-     * 
-     * 标  题：mysql 数据库操作类(版本：Version1.0.0)
-     * 作  者：YuXiaoWei
-     * 日  期：2016/05/10
-     * 修  改：
-     * 参  考： 
-     * 说  明： 暂无...
-     * 备  注： 配置节添加示例：<connectionStrings><add name="ConnString" connectionString="server=121.41.101.4,5533;uid=kidsnet;pwd=1D#g2!hj3kYt4rwg5r#o6hfd7sr@;database=nynet" /></connectionStrings>
-     * 
-     * 
-     * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper
+* 
+* 
+* 标  题：sql server数据库操作类(版本：Version1.0.0)
+* 作  者：YuXiaoWei
+* 日  期：2016/05/10
+* 修  改：
+* 参  考： 
+* 说  明： 暂无...
+* 备  注： 配置节添加示例：<connectionStrings><add name="ConnString" connectionString="server=121.41.101.4,5533;uid=kidsnet;pwd=1D#g2!hj3kYt4rwg5r#o6hfd7sr@;database=nynet" /></connectionStrings>
+* 
+* 
+* ***************************************************************************************************************/
+namespace DotNet.Utilities.DBHelper.DataAccess
 {
     /// <summary>
-    /// mysql 数据库操作类
+    /// sql server数据库操作类
     /// </summary>
-    public sealed class MySqlHelper
+    public sealed class SqlHelper
     {
         #region Field
 
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         private static string ConnString = "";
         private bool isCommon;
-        private MySqlCommand command;
-        public static readonly MySqlHelper Instance = new MySqlHelper(true);//公共实例
+        private SqlCommand command;
+        public static readonly SqlHelper Instance = new SqlHelper(true);//公共实例
 
         #endregion
 
         #region Constructor
 
-        private MySqlHelper(bool isCommon)
+        private SqlHelper(bool isCommon)
         {
             ConnString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;//数据库连接字符串
             if (!isCommon)
             {
-                this.command = new MySqlCommand();
+                this.command = new SqlCommand();
             }
             this.isCommon = isCommon;
         }
-        public MySqlHelper(string connString)
+        public SqlHelper(string connString)
         {
             ConnString = connString;
             this.isCommon = true;
@@ -68,7 +68,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public int ExecSqlNonQuery(string sql, params MySqlParameter[] values)
+        public int ExecSqlNonQuery(string sql, params SqlParameter[] values)
         {
             return InnerExecNonQuery(sql, CommandType.Text, values);
         }
@@ -101,7 +101,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public object ExecSqlScalar(string sql, params MySqlParameter[] values)
+        public object ExecSqlScalar(string sql, params SqlParameter[] values)
         {
             return InnerExecScalar(sql, CommandType.Text, values);
         }
@@ -125,7 +125,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的sql语句</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
-        public void ExecSqlReader(string sql, Action<MySqlDataReader> block)
+        public void ExecSqlReader(string sql, Action<SqlDataReader> block)
         {
             InnerExecReader(sql, CommandType.Text, block);
         }
@@ -136,7 +136,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public void ExecSqlReader(string sql, Action<MySqlDataReader> block, params MySqlParameter[] values)
+        public void ExecSqlReader(string sql, Action<SqlDataReader> block, params SqlParameter[] values)
         {
             InnerExecReader(sql, CommandType.Text, block, values);
         }
@@ -147,7 +147,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="procName">要执行的存储过程的名字</param>
         /// <param name="block">要使用SqlDataReader的代码块（方法）/委托/Lambda语句块</param>
         /// <param name="parameters">存储过程的参数</param>
-        public void ExecProcReader(string procName, Action<MySqlDataReader> block, params object[] parameters)
+        public void ExecProcReader(string procName, Action<SqlDataReader> block, params object[] parameters)
         {
             InnerExecReader(procName, CommandType.StoredProcedure, block, parameters);
         }
@@ -161,7 +161,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的sql语句</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
-        public List<T> ExecSqlList<T>(string sql, Func<MySqlDataReader, T> selector)
+        public List<T> ExecSqlList<T>(string sql, Func<SqlDataReader, T> selector)
         {
             return InnerExecList<T>(sql, CommandType.Text, selector);
         }
@@ -172,7 +172,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public List<T> ExecSqlList<T>(string sql, Func<MySqlDataReader, T> selector, params MySqlParameter[] values)
+        public List<T> ExecSqlList<T>(string sql, Func<SqlDataReader, T> selector, params SqlParameter[] values)
         {
             return InnerExecList<T>(sql, CommandType.Text, selector, values);
         }
@@ -183,7 +183,7 @@ namespace DotNet.Utilities.DBHelper
         /// <param name="procName">要执行的存储过程的名字</param>
         /// <param name="selector">用于生成列表中类型为T的元素的方法/委托/Lambda表达式等</param>
         /// <param name="parameters">存储过程的参数</param>
-        public List<T> ExecProcList<T>(string procName, Func<MySqlDataReader, T> selector, params object[] parameters)
+        public List<T> ExecProcList<T>(string procName, Func<SqlDataReader, T> selector, params object[] parameters)
         {
             return InnerExecList<T>(procName, CommandType.StoredProcedure, selector, parameters);
         }
@@ -206,7 +206,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public DataSet ExecSqlDataSet(string sql, params MySqlParameter[] values)
+        public DataSet ExecSqlDataSet(string sql, params SqlParameter[] values)
         {
             return InnerExecDataSet(sql, CommandType.Text, values);
         }
@@ -239,7 +239,7 @@ namespace DotNet.Utilities.DBHelper
         /// </summary>
         /// <param name="sql">要执行的包含参数的sql语句</param>
         /// <param name="values">Sql语句中表示参数的SqlParameter对象</param>
-        public DataTable ExecSqlDataTable(string sql, params MySqlParameter[] values)
+        public DataTable ExecSqlDataTable(string sql, params SqlParameter[] values)
         {
             return this.ExecSqlDataSet(sql, values).Tables[0];
         }
@@ -250,12 +250,12 @@ namespace DotNet.Utilities.DBHelper
         ///// <param name="storedProcName">存储过程名</param>
         ///// <param name="parameters">存储过程参数</param>
         ///// <returns>SqlDataReader</returns>
-        public static MySqlDataReader RunProcedure(string storedProcName, IDataParameter[] parameters)
+        public static SqlDataReader RunProcedure(string storedProcName, IDataParameter[] parameters)
         {
-            MySqlConnection connection = new MySqlConnection(ConnString);
-            MySqlDataReader returnReader;
+            SqlConnection connection = new SqlConnection(ConnString);
+            SqlDataReader returnReader;
             connection.Open();
-            MySqlCommand command = BuildQueryCommand(connection, storedProcName, parameters);
+            SqlCommand command = BuildQueryCommand(connection, storedProcName, parameters);
             command.CommandType = CommandType.StoredProcedure;
             returnReader = command.ExecuteReader(CommandBehavior.CloseConnection);
             return returnReader;
@@ -271,11 +271,11 @@ namespace DotNet.Utilities.DBHelper
         /// <returns>DataSet</returns>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnString))
+            using (SqlConnection connection = new SqlConnection(ConnString))
             {
                 DataSet dataSet = new DataSet();
                 connection.Open();
-                MySqlDataAdapter sqlDA = new MySqlDataAdapter();
+                SqlDataAdapter sqlDA = new SqlDataAdapter();
                 sqlDA.SelectCommand = BuildQueryCommand(connection, storedProcName, parameters);
                 sqlDA.Fill(dataSet, tableName);
                 connection.Close();
@@ -293,11 +293,11 @@ namespace DotNet.Utilities.DBHelper
         /// <returns>DataSet</returns>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName, int Times)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnString))
+            using (SqlConnection connection = new SqlConnection(ConnString))
             {
                 DataSet dataSet = new DataSet();
                 connection.Open();
-                MySqlDataAdapter sqlDA = new MySqlDataAdapter();
+                SqlDataAdapter sqlDA = new SqlDataAdapter();
                 sqlDA.SelectCommand = BuildQueryCommand(connection, storedProcName, parameters);
                 sqlDA.SelectCommand.CommandTimeout = Times;
                 sqlDA.Fill(dataSet, tableName);
@@ -313,11 +313,11 @@ namespace DotNet.Utilities.DBHelper
         ///// <param name="storedProcName">存储过程名</param>
         ///// <param name="parameters">存储过程参数</param>
         ///// <returns>SqlCommand</returns>
-        private static MySqlCommand BuildQueryCommand(MySqlConnection connection, string storedProcName, IDataParameter[] parameters)
+        private static SqlCommand BuildQueryCommand(SqlConnection connection, string storedProcName, IDataParameter[] parameters)
         {
-            MySqlCommand command = new MySqlCommand(storedProcName, connection);
+            SqlCommand command = new SqlCommand(storedProcName, connection);
             command.CommandType = CommandType.StoredProcedure;
-            foreach (MySqlParameter parameter in parameters)
+            foreach (SqlParameter parameter in parameters)
             {
                 if (parameter != null)
                 {
@@ -353,18 +353,18 @@ namespace DotNet.Utilities.DBHelper
         /// 执行批量Sql语句。
         /// </summary>
         /// <param name="batch">要执行的批量Sql代码块（方法）/委托/Lambda语句块</param>
-        public void ExecBatch(Action<MySqlHelper> batch)
+        public void ExecBatch(Action<SqlHelper> batch)
         {
-            using (MySqlConnection con = new MySqlConnection(ConnString))
+            using (SqlConnection con = new SqlConnection(ConnString))
             {
-                MySqlHelper actuator = new MySqlHelper(false);
+                SqlHelper actuator = new SqlHelper(false);
                 actuator.command.Connection = con;
                 try
                 {
                     con.Open();
                     batch(actuator);
                 }
-                catch (MySqlException)
+                catch (SqlException)
                 {
                     throw;
                 }
@@ -375,20 +375,20 @@ namespace DotNet.Utilities.DBHelper
         /// 执行事务代码。 
         /// </summary>
         /// <param name="block">要执行的事务代码块（方法）/委托/Lambda语句块</param>
-        public void ExecTransaction(Action<MySqlHelper, MySqlTransaction> block)
+        public void ExecTransaction(Action<SqlHelper, SqlTransaction> block)
         {
-            using (MySqlConnection con = new MySqlConnection(ConnString))
+            using (SqlConnection con = new SqlConnection(ConnString))
             {
-                MySqlHelper actuator = new MySqlHelper(false);
+                SqlHelper actuator = new SqlHelper(false);
                 actuator.command.Connection = con;
                 try
                 {
                     con.Open();
-                    MySqlTransaction tran = con.BeginTransaction();
+                    SqlTransaction tran = con.BeginTransaction();
                     actuator.command.Transaction = tran;
                     block(actuator, tran);
                 }
-                catch (MySqlException)
+                catch (SqlException)
                 {
                     throw;
                 }
@@ -409,12 +409,12 @@ namespace DotNet.Utilities.DBHelper
             return InnerExecCommand<object>(text, type, "Scalar", null, null, values);
         }
 
-        private void InnerExecReader(string text, CommandType type, Action<MySqlDataReader> block, params object[] values)
+        private void InnerExecReader(string text, CommandType type, Action<SqlDataReader> block, params object[] values)
         {
             InnerExecCommand<object>(text, type, "Reader", block, null, values);
         }
 
-        private List<T> InnerExecList<T>(string text, CommandType type, Func<MySqlDataReader, T> selector, params object[] values)
+        private List<T> InnerExecList<T>(string text, CommandType type, Func<SqlDataReader, T> selector, params object[] values)
         {
             return InnerExecCommand<T>(text, type, "List", null, selector, values) as List<T>;
         }
@@ -424,12 +424,12 @@ namespace DotNet.Utilities.DBHelper
             return InnerExecCommand<object>(text, type, "DataSet", null, null, values) as DataSet;
         }
 
-        private object InnerExecCommand<T>(string text, CommandType type, string method, Action<MySqlDataReader> block,
-            Func<MySqlDataReader, T> selector, params object[] values)
+        private object InnerExecCommand<T>(string text, CommandType type, string method, Action<SqlDataReader> block,
+            Func<SqlDataReader, T> selector, params object[] values)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");
-            Func<MySqlCommand, object> exec;
+            Func<SqlCommand, object> exec;
             switch (method)
             {
                 case "NonQuery":
@@ -441,7 +441,7 @@ namespace DotNet.Utilities.DBHelper
                 case "Reader":
                     exec = c =>
                     {
-                        using (MySqlDataReader reader = c.ExecuteReader())
+                        using (SqlDataReader reader = c.ExecuteReader())
                         {
                             block(reader);
                             return null;
@@ -451,7 +451,7 @@ namespace DotNet.Utilities.DBHelper
                 case "DataSet":
                     exec = c =>
                     {
-                        MySqlDataAdapter adp = new MySqlDataAdapter(c);
+                        SqlDataAdapter adp = new SqlDataAdapter(c);
                         DataSet ds = new DataSet();
                         adp.Fill(ds);
                         return ds;
@@ -461,7 +461,7 @@ namespace DotNet.Utilities.DBHelper
                     //List
                     exec = c =>
                     {
-                        using (MySqlDataReader reader = c.ExecuteReader())
+                        using (SqlDataReader reader = c.ExecuteReader())
                         {
                             List<T> list = new List<T>();
                             while (reader.Read())
@@ -475,9 +475,9 @@ namespace DotNet.Utilities.DBHelper
             }
             if (this.isCommon)
             {
-                using (MySqlConnection con = new MySqlConnection(ConnString))
+                using (SqlConnection con = new SqlConnection(ConnString))
                 {
-                    MySqlCommand cmd = new MySqlCommand(text, con)
+                    SqlCommand cmd = new SqlCommand(text, con)
                     {
                         CommandType = type
                     };
@@ -487,7 +487,7 @@ namespace DotNet.Utilities.DBHelper
                         SetParams(cmd, values);
                         return exec(cmd);
                     }
-                    catch (MySqlException)
+                    catch (SqlException)
                     {
                         throw;
                     }
@@ -503,19 +503,19 @@ namespace DotNet.Utilities.DBHelper
             }
         }
 
-        private void SetParams(MySqlCommand cmd, params object[] values)
+        private void SetParams(SqlCommand cmd, params object[] values)
         {
             if (cmd.CommandType == CommandType.Text)
             {
                 for (int i = 0; i < values.Length; i++)
                 {
-                    ((MySqlParameter)(values[i])).Value = ((MySqlParameter)(values[i])).Value ?? DBNull.Value;
+                    ((SqlParameter)(values[i])).Value = ((SqlParameter)(values[i])).Value ?? DBNull.Value;
                 }
                 cmd.Parameters.AddRange(values);
             }
             else if (cmd.CommandType == CommandType.StoredProcedure)
             {
-                MySqlCommandBuilder.DeriveParameters(cmd);
+                SqlCommandBuilder.DeriveParameters(cmd);
                 cmd.Parameters.RemoveAt(0);
                 for (int i = 0; i < cmd.Parameters.Count; i++)
                 {

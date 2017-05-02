@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 
-namespace DotNet.Utilities.DBHelper
+namespace DotNet.Utilities.DBHelper.CrDB
 {
     /// <summary>
     /// 跨数据库的操作类，父类，不可new

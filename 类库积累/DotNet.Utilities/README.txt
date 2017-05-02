@@ -21,5 +21,6 @@ MySql需要在app.config文件中注册： <system.data>
 Excel  ado.net连接：Provider=Microsoft.Ace.OLEDB.12.0;Data Source='1.xlsx';Extended Properties='Excel 12.0;HDR=yes;IMEX=1'  System.Data.OleDb
 SQLite ado.net连接：Data Source=|DataDirectory|\App_Data\data.sdb;Pooling=true;FailIfMissing=false;  System.Data.SQLite
 SQL server：server=121.41.101.4,5533;uid=kidsnet;pwd=1D#g2!hj3kYt4rwg5r#o6hfd7sr@;database=nynet  System.Data.SqlClient
+	data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\App_Data\Database1.mdf;integrated security=True;MultipleActiveResultSets=True;  System.Data.SqlClient
 Access：Provider=Microsoft.Ace.OLEDB.12.0;Data Source='C:\Users\Administrator\Desktop\Database1.accdb';User Id=; Password=;  System.Data.OleDb
 MySql：Database='nzw';Data Source='rdsb0lqub12oujlvf6vb9o.mysql.rds.aliyuncs.com';User Id='zhongfu';Password='zf_liuyan_2015';charset='utf8';pooling=true;  MySql.Data.MySqlClient

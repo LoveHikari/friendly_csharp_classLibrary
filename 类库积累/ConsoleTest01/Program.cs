@@ -3,6 +3,7 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 using DotNet.Utilities.DBHelper;
+using DotNet.Utilities.DBHelper.CrDB;
 
 namespace ConsoleTest01
 {
