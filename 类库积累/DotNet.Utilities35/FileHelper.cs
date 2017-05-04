@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// 文件帮助类

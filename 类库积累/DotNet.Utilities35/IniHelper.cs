@@ -19,7 +19,7 @@ using System.Text;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// 读写ini文件，需要绝对路径

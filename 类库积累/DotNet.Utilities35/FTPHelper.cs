@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// ftp操作类

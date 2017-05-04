@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// 

@@ -16,7 +16,7 @@ using System.Web;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// http下载类

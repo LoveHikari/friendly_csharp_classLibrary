@@ -1,5 +1,5 @@
-using Microsoft.Office.Core;
 using System;
+using Microsoft.Office.Core;
 using Excel = Microsoft.Office.Interop.Excel;
 /******************************************************************************************************************
  * 
@@ -14,7 +14,7 @@ using Excel = Microsoft.Office.Interop.Excel;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// MicrosoftExcelHelper 的摘要说明：一个C#操作Excel类，功能比较全。

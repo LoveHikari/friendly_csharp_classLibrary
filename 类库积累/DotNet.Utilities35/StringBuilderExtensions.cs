@@ -14,7 +14,7 @@
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// StringBuilder 扩展类

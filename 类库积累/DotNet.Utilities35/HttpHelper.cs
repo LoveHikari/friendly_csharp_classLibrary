@@ -18,7 +18,7 @@ using System.Text;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35
+namespace DotNet.Utilities
 {
     /// <summary>
     /// 获得http信息

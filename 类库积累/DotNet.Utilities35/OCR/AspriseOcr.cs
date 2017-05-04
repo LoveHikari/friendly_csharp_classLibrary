@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities35.OCR
+namespace DotNet.Utilities.OCR
 {
     /// <summary>
     /// Asprise 方式识别
