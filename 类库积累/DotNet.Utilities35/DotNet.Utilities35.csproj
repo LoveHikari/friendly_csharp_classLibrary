@@ -83,6 +83,7 @@
     <Compile Include="CodeCommon.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DBHelper\CrDB\CrDB.cs" />
     <Compile Include="DBHelper\CrDB\DBHelper.cs" />

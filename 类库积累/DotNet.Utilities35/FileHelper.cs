@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text.RegularExpressions;
 
 /******************************************************************************************************************
@@ -561,29 +561,24 @@ namespace DotNet.Utilities
                 return System.Text.Encoding.Default;
             }
         }
-        /// <summary>
-        /// 模糊搜索文件
-        /// </summary>
-        /// <param name="dirPath">文件夹目录</param>
-        /// <param name="sea">搜索的关键词</param>
-        /// <returns>所有文件路径</returns>
-        public static List<string> SearchFile(string dirPath, string sea)
-        {
-            List<string>  list = new List<string>();
-            foreach (var c in sea.ToCharArray())
-            {
-                list.Add(c.ToString());
-            }
-                sea = "*" + string.Join("*", list.ToArray()) + "*";
-            List<string> fileList = new List<string>(System.IO.Directory.GetFiles(dirPath, sea));
-            List<string> m_dir = FileHelper.FindAllDirectories(dirPath);
-            foreach (string dir in m_dir)
-            {
-                List<string> l = new List<string>(System.IO.Directory.GetFiles(dir, sea));
-                fileList = new List<string>(fileList.Union(l));
-            }
-            return fileList;
-        }
+        ///// <summary>
+        ///// 模糊搜索文件
+        ///// </summary>
+        ///// <param name="dirPath">文件夹目录</param>
+        ///// <param name="sea">搜索的关键词</param>
+        ///// <returns>所有文件路径</returns>
+        //public static List<string> SearchFile(string dirPath, string sea)
+        //{
+        //    sea = "*" + string.Join("*", sea.ToCharArray()) + "*";
+        //    List<string> fileList = new List<string>(System.IO.Directory.GetFiles(dirPath, sea));
+        //    List<string> m_dir = FileHelper.FindAllDirectories(dirPath);
+        //    foreach (string dir in m_dir)
+        //    {
+        //        List<string> l = new List<string>(System.IO.Directory.GetFiles(dir, sea));
+        //        fileList = new List<string>(fileList.Union(l));
+        //    }
+        //    return fileList;
+        //}
         /// <summary>
         /// 文件路径处理
         /// </summary>
@@ -605,6 +600,66 @@ namespace DotNet.Utilities
         public static string FileNameProcess(string fileName)
         {
             return fileName.Replace("\\", "").Replace("/", "").Replace(":", "").Replace("*", "").Replace("?", "").Replace("\"", "").Replace("<", "").Replace(">", "").Replace("|", "");
+        }
+
+        /// <summary>
+        /// 将 Stream 转成 byte[]
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static byte[] StreamToBytes(Stream stream)
+        {
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            // 设置当前流的位置为流的开始 
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
+        }
+        /// <summary>
+        /// 将 byte[] 转成 Stream 
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static Stream BytesToStream(byte[] bytes)
+        {
+            Stream stream = new MemoryStream(bytes);
+            return stream;
+        }
+        /// <summary>
+        ///  将 Stream 写入文件 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="fileName"></param>
+        public static void StreamToFile(Stream stream, string fileName)
+        {
+            // 把 Stream 转换成 byte[] 
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            // 设置当前流的位置为流的开始 
+            stream.Seek(0, SeekOrigin.Begin);
+            // 把 byte[] 写入文件 
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(bytes);
+            bw.Close();
+            fs.Close();
+        }
+        /// <summary>
+        /// 从文件读取 Stream 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static Stream FileToStream(string fileName)
+        {
+            // 打开文件 
+            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            // 读取文件的 byte[] 
+            byte[] bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, bytes.Length);
+            fileStream.Close();
+            // 把 byte[] 转换成 Stream 
+            Stream stream = new MemoryStream(bytes);
+            return stream;
         }
     }
 }

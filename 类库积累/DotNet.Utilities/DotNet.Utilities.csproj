@@ -86,6 +86,7 @@
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="DatabaseExtensions.cs" />
+    <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DBHelper\Dapper\Core\DataBaseAccess.cs" />
     <Compile Include="DBHelper\Dapper\Core\SqlClient\Entry.cs" />
