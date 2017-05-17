@@ -59,6 +59,36 @@ namespace DotNet.Utilities
             return i;
         }
         /// <summary>
+        /// 转换为Long，为null时返回0
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="i">指定转换失败时返回的值，默认为0</param>
+        /// <returns></returns>
+        public static long ToLong(this object input, long i = 0L)
+        {
+            long result;
+            if (input == null)
+                return 0L;
+            if (long.TryParse(input.ToString(), out result))
+                return result;
+            return i;
+        }
+        /// <summary>
+        /// 转换为Short，为null时返回0
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="defaultValue">指定转换失败时返回的值，默认为0</param>
+        /// <returns></returns>
+        public static short ToShort(this object source, short defaultValue=0)
+        {
+            if (string.IsNullOrEmpty(source.ToString()))
+                return defaultValue;
+            short result;
+            if (!short.TryParse(source.ToString(), out result))
+                result = defaultValue;
+            return result;
+        }
+        /// <summary>
         /// 转换为decimal类型，失败返回0
         /// </summary>
         /// <param name="s"></param>
@@ -87,6 +117,22 @@ namespace DotNet.Utilities
                 return result;
             }
             return d;
+        }
+
+        /// <summary>
+        /// 转换为Boolean类型，失败返回false
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="defaultValue">指定转换失败时返回的值,默认为false</param>
+        /// <returns></returns>
+        public static bool ToBoolean(this object source, bool defaultValue = false)
+        {
+            bool result;
+            if (string.IsNullOrEmpty(source.ToString()))
+                return defaultValue;
+            if (!bool.TryParse(source.ToString(), out result))
+                result = defaultValue;
+            return result;
         }
     }
 }
