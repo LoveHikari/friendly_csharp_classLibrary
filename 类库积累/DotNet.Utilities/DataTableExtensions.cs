@@ -26,7 +26,7 @@ namespace DotNet.Utilities
         /// <summary>
         /// DataTable转list
         /// </summary>
-        /// <typeparam name="T">转化类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="dt">DataTable数据</param>
         /// <returns>模型列表</returns>
         public static List<T> ToList<T>(this DataTable dt) where T : class ,new()
@@ -37,38 +37,57 @@ namespace DotNet.Utilities
             //遍历DataTable中所有的数据行 
             foreach (DataRow dr in dt.Rows)
             {
-                T t = new T();
-                // 获得此模型的公共属性 
-                PropertyInfo[] propertys = t.GetType().GetProperties();
-                //遍历该对象的所有属性 
-                foreach (PropertyInfo pi in propertys)
-                {
-                    string tempName = pi.Name;//将属性名称赋值给临时变量 
-                    //检查DataTable是否包含此列（列名==对象的属性名）  
-                    if (dt.Columns.Contains(tempName))
-                    {
-                        //取值 
-                        object value = dr[tempName];
-                        //如果非空，则赋给对象的属性 
-                        if (value != DBNull.Value)
-                        {
-                            if (pi.PropertyType.FullName.IndexOf(typeof(Int32).FullName,StringComparison.CurrentCultureIgnoreCase) > -1)  //如果类型是int
-                            {
-                                pi.SetValue(t, value.ToInt32(), null);
-                            }
-                            else
-                            {
-                                pi.SetValue(t, value, null);
-                            }
-                            
-                        }
-                    }
-                }
+                var t = dr.ToEntity<T>();
                 //对象添加到泛型集合中 
                 ts.Add(t);
             }
             return ts;
 
+        }
+
+        /// <summary>
+        /// 将DataRow 转成实体
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="dr">DataRow数据</param>
+        /// <returns>实体</returns>
+        public static T ToEntity<T>(this DataRow dr) where T : class, new()
+        {
+            T t = new T();
+            // 获得此模型的公共属性 
+            PropertyInfo[] propertys = t.GetType().GetProperties();
+
+            //遍历该对象的所有属性 
+            foreach (PropertyInfo pi in propertys)
+            {
+                string tempName = pi.Name;//将属性名称赋值给临时变量
+                //检查DataTable是否包含此列（列名==对象的属性名）  
+                if (dr.Table.Columns.Contains(tempName))
+                {
+                    //取值
+                    object value = dr[tempName];
+                    //如果非空，则赋给对象的属性 
+                    if (value != DBNull.Value)
+                    {
+                        if (pi.PropertyType.FullName.IndexOf(typeof(Int32).FullName, StringComparison.CurrentCultureIgnoreCase) > -1) //如果类型是int
+                        {
+                            pi.SetValue(t, value.ToInt32(), null);
+                        }
+                        else if (pi.PropertyType.FullName.IndexOf(typeof(String).FullName, StringComparison.CurrentCultureIgnoreCase) > -1) //如果类型是string
+                        {
+                            pi.SetValue(t, value.ToString(), null);
+                        }
+                        else
+                        {
+                            pi.SetValue(t, value, null);
+                        }
+
+                    }
+                }
+
+            }
+
+            return t;
         }
     }
 }
