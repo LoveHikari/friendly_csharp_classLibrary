@@ -562,6 +562,8 @@ namespace DotNet.Utilities
                 return System.Text.Encoding.Default;
             }
         }
+
+#if !NET35
         /// <summary>
         /// 模糊搜索文件
         /// </summary>
@@ -580,6 +582,8 @@ namespace DotNet.Utilities
             }
             return fileList;
         }
+#endif
+
         /// <summary>
         /// 文件路径处理
         /// </summary>

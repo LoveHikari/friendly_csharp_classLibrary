@@ -481,18 +481,47 @@ namespace DotNet.Utilities
             GC.Collect();
         }
 
+#if NET35
         /// <summary>
         /// 获得最大行列数
         /// </summary>
         /// <param name="wsn">工作表名称</param>
         /// <returns>rowsCount: 最大行,colsCount: 最大列</returns>
-        public (int rowsCount,int colsCount) GetMaxCount(string wsn)
+        public object[] GetMaxCount(string wsn)
+        {
+            Excel.Worksheet ws = GetSheet(wsn);
+            int rowsCount = ws.UsedRange.Rows.Count;
+            int colsCount = ws.UsedRange.Columns.Count;
+            return new object[]{rowsCount, colsCount};
+        }
+# elif C6
+        /// <summary>
+        /// 获得最大行列数
+        /// </summary>
+        /// <param name="wsn">工作表名称</param>
+        /// <returns>rowsCount: 最大行,colsCount: 最大列</returns>
+        public Tuple<int, int> GetMaxCount(string wsn)
+        {
+            Excel.Worksheet ws = GetSheet(wsn);
+            int rowsCount = ws.UsedRange.Rows.Count;
+            int colsCount = ws.UsedRange.Columns.Count;
+            return new Tuple<int, int>(rowsCount, colsCount);
+        }
+#else
+        /// <summary>
+        /// 获得最大行列数
+        /// </summary>
+        /// <param name="wsn">工作表名称</param>
+        /// <returns>rowsCount: 最大行,colsCount: 最大列</returns>
+        public (int rowsCount, int colsCount) GetMaxCount(string wsn)
         {
             Excel.Worksheet ws = GetSheet(wsn);
             int rowsCount = ws.UsedRange.Rows.Count;
             int colsCount = ws.UsedRange.Columns.Count;
             return (rowsCount, colsCount);
         }
+#endif
+
         /// <summary>
         /// 获得最大行数
         /// </summary>

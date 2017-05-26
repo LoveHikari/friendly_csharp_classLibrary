@@ -37,7 +37,7 @@ namespace DotNet.Utilities
         /// <c>！注意：有时候请求会重定向，但我们就需要从重定向url获取东西，像QQ登录成功后获取sid，但上面的会自动根据重定向地址跳转。我们可以用:
         ///     request.AllowAutoRedirect = false;设置重定向禁用，你就可以从headers的Location属性中获取重定向地址</c>
         /// <returns>html代码</returns>
-        public static string GetHttpWebRequest(string url, string chareset = "utf-8", WebProxy proxy=null)
+        public static string GetHttpWebRequest(string url, string chareset = "utf-8", WebProxy proxy = null)
         {
             return HttpWebRequest(url, "GET", chareset, proxy);
 
@@ -101,6 +101,35 @@ namespace DotNet.Utilities
 
         #region http请求
 
+#if NET35
+        /// <summary>
+        /// http POST 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="postDataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookies">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static object[] HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
+        {
+            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, cookies, "");
+        }
+#elif C6
+        /// <summary>
+        /// http POST 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="postDataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookies">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static Tuple<string, string> HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
+        {
+            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, cookies, "");
+        }
+#else
         /// <summary>
         /// http POST 请求
         /// </summary>
@@ -114,7 +143,37 @@ namespace DotNet.Utilities
         {
             return HttpRequest(url, "POST", postDataStr, chareset, headerItem, cookies, "");
         }
+#endif
 
+#if NET35
+        /// <summary>
+        /// http POST 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="postDataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookie">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static object[] HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
+        {
+            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, null, cookie);
+        }
+#elif C6
+        /// <summary>
+        /// http POST 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="postDataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookie">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static Tuple<string, string> HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
+        {
+            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, null, cookie);
+        }
+#else
         /// <summary>
         /// http POST 请求
         /// </summary>
@@ -128,7 +187,37 @@ namespace DotNet.Utilities
         {
             return HttpRequest(url, "POST", postDataStr, chareset, headerItem, null, cookie);
         }
+#endif
 
+#if NET35
+        /// <summary>
+        /// http GET 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="getDataStr">请求内容</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem">请求头</param>
+        /// <param name="cookies">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static object[] HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
+        {
+            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, cookies, "");
+        }
+#elif C6
+        /// <summary>
+        /// http GET 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="getDataStr">请求内容</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem">请求头</param>
+        /// <param name="cookies">cookie容器</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        public static Tuple<string, string> HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
+        {
+            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, cookies, "");
+        }
+#else
         /// <summary>
         /// http GET 请求
         /// </summary>
@@ -142,7 +231,37 @@ namespace DotNet.Utilities
         {
             return HttpRequest(url, "GET", getDataStr, chareset, headerItem, cookies, "");
         }
+#endif
 
+#if NET35
+        /// <summary>
+        /// http GET 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="getDataStr">请求内容</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem">请求头</param>
+        /// <param name="cookie">cookie容器</param>
+        /// <returns>响应的页面</returns>
+        public static object[] HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
+        {
+            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, null, cookie);
+        }
+#elif C6
+        /// <summary>
+        /// http GET 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="getDataStr">请求内容</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem">请求头</param>
+        /// <param name="cookie">cookie容器</param>
+        /// <returns>响应的页面</returns>
+        public static Tuple<string, string> HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
+        {
+            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, null, cookie);
+        }
+#else
         /// <summary>
         /// http GET 请求
         /// </summary>
@@ -156,6 +275,9 @@ namespace DotNet.Utilities
         {
             return HttpRequest(url, "GET", getDataStr, chareset, headerItem, null, cookie);
         }
+#endif
+
+
         #endregion
 
         /// <summary>
@@ -428,6 +550,105 @@ namespace DotNet.Utilities
 
         }
 
+#if NET35
+        /// <summary>
+        /// http 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="qequest">请求方法，GET、POST</param>
+        /// <param name="dataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookies">cookie容器</param>
+        /// <param name="cookie">cookie</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        private static object[] HttpRequest(string url, string qequest, string dataStr, string chareset, Hashtable headerItem, CookieContainer cookies, string cookie)
+        {
+            HttpWebRequest request;
+            if (qequest == "GET")
+                request = (HttpWebRequest)WebRequest.Create(url + (dataStr == "" ? "" : "?") + dataStr);
+            else
+                request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = qequest;
+            if (qequest == "POST")
+                request.ContentLength = Encoding.GetEncoding(chareset).GetByteCount(dataStr);
+            SetHeaderValue(ref request, headerItem);
+            //CookieContainer cookie = new CookieContainer();
+
+            request.CookieContainer = cookies ?? GetCookieContainer(url, cookie);
+            request.Timeout = 90000;
+            if (qequest == "POST")
+            {
+                Stream myRequestStream = request.GetRequestStream();
+                myRequestStream.Write(Encoding.GetEncoding(chareset).GetBytes(dataStr), 0, Encoding.GetEncoding(chareset).GetByteCount(dataStr));
+                myRequestStream.Close();
+            }
+
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            response.Cookies = request.CookieContainer?.GetCookies(response.ResponseUri);
+            cookie = request.CookieContainer?.GetCookieHeader(response.ResponseUri);
+            using (Stream myResponseStream = response.GetResponseStream())
+            {
+                using (StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding(chareset)))
+                {
+                    string retString = myStreamReader.ReadToEnd();
+                    request.Abort();
+                    return new object[] { retString, cookie };
+                }
+            }
+        }
+#elif C6
+        /// <summary>
+        /// http 请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="qequest">请求方法，GET、POST</param>
+        /// <param name="dataStr">请求主体</param>
+        /// <param name="chareset">编码，默认utf-8</param>
+        /// <param name="headerItem"></param>
+        /// <param name="cookies">cookie容器</param>
+        /// <param name="cookie">cookie</param>
+        /// <returns>响应的页面, 响应的cookie</returns>
+        private static Tuple<string, string> HttpRequest(string url, string qequest, string dataStr, string chareset, Hashtable headerItem, CookieContainer cookies, string cookie)
+        {
+            HttpWebRequest request;
+            if (qequest == "GET")
+                request = (HttpWebRequest)WebRequest.Create(url + (dataStr == "" ? "" : "?") + dataStr);
+            else
+                request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = qequest;
+            if (qequest == "POST")
+                request.ContentLength = Encoding.GetEncoding(chareset).GetByteCount(dataStr);
+            SetHeaderValue(ref request, headerItem);
+            //CookieContainer cookie = new CookieContainer();
+
+            request.CookieContainer = cookies ?? GetCookieContainer(url, cookie);
+            request.Timeout = 90000;
+            if (qequest == "POST")
+            {
+                Stream myRequestStream = request.GetRequestStream();
+                myRequestStream.Write(Encoding.GetEncoding(chareset).GetBytes(dataStr), 0, Encoding.GetEncoding(chareset).GetByteCount(dataStr));
+                myRequestStream.Close();
+            }
+
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            response.Cookies = request.CookieContainer?.GetCookies(response.ResponseUri);
+            cookie = request.CookieContainer?.GetCookieHeader(response.ResponseUri);
+            using (Stream myResponseStream = response.GetResponseStream())
+            {
+                using (StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding(chareset)))
+                {
+                    string retString = myStreamReader.ReadToEnd();
+                    request.Abort();
+                    return new Tuple<string, string>(retString, cookie);
+                }
+            }
+        }
+#else
         /// <summary>
         /// http 请求
         /// </summary>
@@ -476,6 +697,8 @@ namespace DotNet.Utilities
                 }
             }
         }
+#endif
+
         #endregion
     }
     ///// <summary>

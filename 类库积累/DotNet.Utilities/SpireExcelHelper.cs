@@ -337,7 +337,7 @@ namespace DotNet.Utilities
             System.Drawing.Image image = System.Drawing.Image.FromFile(filename);
             GetSheet(wsn).Pictures.Add(topRow, leftColumn, image, width, height);
         }
-        
+
         /// <summary>
         /// 保存
         /// </summary>
@@ -402,12 +402,39 @@ namespace DotNet.Utilities
             _mFilename = null;
             GC.Collect();
         }
+
+#if NET35
         /// <summary>
         /// 获得最大行列数
         /// </summary>
         /// <param name="wsn">工作表的名称</param>
-        /// <param name="rowsCount">最大行数</param>
-        /// <param name="colsCount">最大列数</param>
+        /// <returns>最大行数,最大列数</returns>
+        public object[] GetMaxCount(string wsn)
+        {
+            Worksheet ws = GetSheet(wsn);
+            int rowsCount = ws.Rows.Length;
+            int colsCount = ws.Columns.Length;
+            return new object[] { rowsCount, colsCount };
+        }
+#elif C6
+        /// <summary>
+        /// 获得最大行列数
+        /// </summary>
+        /// <param name="wsn">工作表的名称</param>
+        /// <returns>最大行数,最大列数</returns>
+        public Tuple<int, int> GetMaxCount(string wsn)
+        {
+            Worksheet ws = GetSheet(wsn);
+            int rowsCount = ws.Rows.Length;
+            int colsCount = ws.Columns.Length;
+            return new Tuple<int, int>(rowsCount, colsCount);
+        }
+#else
+        /// <summary>
+        /// 获得最大行列数
+        /// </summary>
+        /// <param name="wsn">工作表的名称</param>
+        /// <returns>最大行数,最大列数</returns>
         public (int rowsCount, int colsCount) GetMaxCount(string wsn)
         {
             Worksheet ws = GetSheet(wsn);
@@ -415,6 +442,8 @@ namespace DotNet.Utilities
             int colsCount = ws.Columns.Length;
             return (rowsCount, colsCount);
         }
+#endif
+
         /// <summary>
         /// 获得最大行数
         /// </summary>
@@ -443,7 +472,7 @@ namespace DotNet.Utilities
         public string GetCellsValue(string wsn, int x, int y)
         {
             Worksheet ws = GetSheet(wsn);
-            return Convert.ToString(ws.Range[x,y].Value2);
+            return Convert.ToString(ws.Range[x, y].Value2);
         }
         /// <summary>
         /// 获得单元格文本
