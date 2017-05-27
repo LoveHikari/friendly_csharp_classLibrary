@@ -52,7 +52,7 @@ namespace DotNet.Utilities
         /// </summary>
         /// <param name="strSource"></param>
         /// <returns></returns>
-        public string DESDecrypt(string strSource)
+        public static string DESDecrypt(string strSource)
         {
             byte[] DESKey = System.Text.ASCIIEncoding.ASCII.GetBytes("xhVs6DRXLfUGxw+AhtfQdpQGoa+8SA9d");
             return DESDecrypt(strSource, DESKey);
@@ -63,7 +63,7 @@ namespace DotNet.Utilities
         /// <param name="strSource">待解密的字串</param>
         /// <param name="key">32位Key值</param>
         /// <returns>解密后的字符串</returns>
-        public string DESDecrypt(string strSource, byte[] key)
+        public static string DESDecrypt(string strSource, byte[] key)
         {
             SymmetricAlgorithm sa = Rijndael.Create();
             sa.Key = key;

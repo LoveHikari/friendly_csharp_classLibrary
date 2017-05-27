@@ -10,14 +10,18 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
     /// <summary>
     /// 数据库访问类
     /// </summary>
-    public class DataBaseAccess
+    internal class DataBaseAccess
     {
-        public static IDbConnection Conn
+        private string _connStr;
+        public string ConnStr { get => _connStr; set => _connStr = value; }
+        /// <summary>
+        /// 数据库连接字符串
+        /// </summary>
+        public IDbConnection Conn
         {
             get
             {
-                string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
-                SqlConnection conn = new SqlConnection(connStr);
+                SqlConnection conn = new SqlConnection(_connStr);
                 conn.Open();
                 return conn;
             }
@@ -29,7 +33,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql">带参数的sql语句</param>
         /// <param name="parms">实体</param>
         /// <returns>id</returns>
-        public static int Insert(string sql, object parms = null)
+        public int Insert(string sql, object parms = null)
         {
             int id = 0;
             using (Conn)
@@ -46,7 +50,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql">带参数的sql语句</param>
         /// <param name="parms">实体</param>
         /// <returns></returns>
-        public static int Execute(string sql, object parms = null)
+        public int Execute(string sql, object parms = null)
         {
             using (Conn)
             {
@@ -61,7 +65,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
-        public static object ExecuteScalar(string sql, object parms = null)
+        public object ExecuteScalar(string sql, object parms = null)
         {
             using (Conn)
             {
@@ -75,7 +79,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
-        public static List<TEntity> Query<TEntity>(string sql, Func<TEntity, bool> pre, object parms = null)
+        public List<TEntity> Query<TEntity>(string sql, Func<TEntity, bool> pre, object parms = null)
         {
             using (Conn)
             {
@@ -89,7 +93,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
-        public static List<TEntity> Query<TEntity>(string sql, object parms = null)
+        public List<TEntity> Query<TEntity>(string sql, object parms = null)
         {
             using (Conn)
             {
@@ -103,7 +107,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
-        public static SqlMapper.GridReader MultyQuery(string sql, object parms = null)
+        public SqlMapper.GridReader MultyQuery(string sql, object parms = null)
         {
             using (Conn)
             {
@@ -117,7 +121,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// <param name="sql"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
-        public static TEntity FirstOrDefault<TEntity>(string sql, Func<TEntity, bool> selector, object parms = null)
+        public TEntity FirstOrDefault<TEntity>(string sql, Func<TEntity, bool> selector, object parms = null)
         {
             using (Conn)
             {

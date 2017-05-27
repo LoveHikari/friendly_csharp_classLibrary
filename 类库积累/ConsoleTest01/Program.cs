@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Text;
 using DotNet.Utilities.DBHelper;
 using DotNet.Utilities.DBHelper.CrDB;
+using DotNet.Utilities.DBHelper.Dapper.Core.SqlClient;
+using DotNet.Utilities.DBHelper.Dapper.DataAnnotations;
 
 namespace ConsoleTest01
 {
@@ -11,10 +13,7 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-            CrDB db = new DBHelper();
-            db.ExecuteNonQuery("select * from cesi");
-            //File.Delete("data.sdb");
-            
+           
             System.Console.WriteLine("OK");
             System.Console.ReadKey();
 

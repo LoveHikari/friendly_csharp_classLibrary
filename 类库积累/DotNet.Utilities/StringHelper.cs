@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 namespace DotNet.Utilities
 {
     /// <summary>
-    /// 字符串帮助类
+    /// <see cref="String"/> 帮助类
     /// </summary>
     public class StringHelper
     {
@@ -61,8 +61,9 @@ namespace DotNet.Utilities
 
     }
     /// <summary>
-    /// string 扩展方法
+    /// <see cref="String"/> 扩展方法
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never), System.ComponentModel.Browsable(false)]
     public static class StringExtensions
     {
         /// <summary>

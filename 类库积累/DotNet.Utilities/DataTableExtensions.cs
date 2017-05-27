@@ -19,12 +19,13 @@ using System.Reflection;
 namespace DotNet.Utilities
 {
     /// <summary>
-    /// DataTable 扩展类
+    /// <see cref="DataTable"/> 扩展类
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never), System.ComponentModel.Browsable(false)]
     public static class DataTableExtensions
     {
         /// <summary>
-        /// DataTable转list
+        /// <see cref="DataTable"/> 转 <see cref="List{T}"/>
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="dt">DataTable数据</param>
@@ -46,10 +47,10 @@ namespace DotNet.Utilities
         }
 
         /// <summary>
-        /// 将DataRow 转成实体
+        /// 将 <see cref="DataRow"/> 转成实体
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="dr">DataRow数据</param>
+        /// <param name="dr"><see cref="DataRow"/> 数据</param>
         /// <returns>实体</returns>
         public static T ToEntity<T>(this DataRow dr) where T : class, new()
         {
@@ -88,6 +89,84 @@ namespace DotNet.Utilities
             }
 
             return t;
+        }
+        /// <summary>
+        /// 统计指定列的数据的和
+        /// </summary>
+        /// <param name="dt">数据表</param>
+        /// <param name="columnName">列名</param>
+        /// <returns></returns>
+        public static double ColumnSum(this DataTable dt, string columnName)
+        {
+            double d = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                d += row[columnName].ToDouble();
+            }
+            return d;
+        }
+
+        /// <summary>  
+        /// 分解数据表  
+        /// </summary>  
+        /// <param name="originalTab">需要分解的表</param>  
+        /// <param name="rowsNum">每个表包含的数据量</param>  
+        /// <returns></returns>  
+        public static DataSet SplitDataTable(this DataTable originalTab, int rowsNum)
+        {
+            //获取所需创建的表数量  
+            int tableNum = Math.Ceiling(originalTab.Rows.Count / (double)rowsNum).ToInt32();
+
+            //获取数据余数  
+            int remainder = originalTab.Rows.Count % rowsNum;
+
+            DataSet ds = new DataSet();
+
+            //如果只需要创建1个表，直接将原始表存入DataSet
+            if (tableNum == 0)
+            {
+                ds.Tables.Add(originalTab);
+            }
+            else
+            {
+                DataTable[] tableSlice = new DataTable[tableNum];
+
+                //将原始列保存到新表中
+                for (int c = 0; c < tableNum; c++)
+                {
+                    tableSlice[c] = new DataTable();
+                    foreach (DataColumn dc in originalTab.Columns)
+                    {
+                        tableSlice[c].Columns.Add(dc.ColumnName, dc.DataType);
+                    }
+                }
+                //导入行
+                for (int i = 0; i < tableNum; i++)
+                {
+                    // 如果当前表不是最后一个表
+                    if (i != tableNum - 1)
+                    {
+                        for (int j = i * rowsNum; j < ((i + 1) * rowsNum); j++)
+                        {
+                            tableSlice[i].ImportRow(originalTab.Rows[j]);
+                        }
+                    }
+                    else
+                    {
+                        for (int k = i * rowsNum; k < originalTab.Rows.Count; k++)
+                        {
+                            tableSlice[i].ImportRow(originalTab.Rows[k]);
+                        }
+                    }
+                }
+
+                //将所有表添加到数据集中
+                foreach (DataTable dt in tableSlice)
+                {
+                    ds.Tables.Add(dt);
+                }
+            }
+            return ds;
         }
     }
 }
