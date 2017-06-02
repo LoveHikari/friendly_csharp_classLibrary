@@ -117,6 +117,7 @@
     <Compile Include="PublicInfo.cs" />
     <Compile Include="RandomHelper.cs" />
     <Compile Include="RegexUtil.cs" />
+    <Compile Include="SerializableDictionary.cs" />
     <Compile Include="Similarity\LevenshteinDistance\LevenshteinDistance.cs" />
     <Compile Include="Similarity\SimHash\Analysers\SimHashAnalyser.cs" />
     <Compile Include="Similarity\SimHash\Interfaces\IAnalyser.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="ThreadPoolHelper.cs" />
     <Compile Include="WaterImageManage.cs" />
     <Compile Include="LogHelper.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

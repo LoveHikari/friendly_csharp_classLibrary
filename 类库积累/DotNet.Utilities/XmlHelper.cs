@@ -1,7 +1,20 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
-
+/******************************************************************************************************************
+ * 
+ * 
+ * 标  题： XML 帮助类(版本：Version1.0.0)
+ * 作  者： YuXiaoWei
+ * 日  期： 2017/06/02
+ * 修  改：
+ * 参  考： 
+ * 说  明： 暂无...
+ * 备  注： 暂无...
+ * 调用示列：
+ *
+ * 
+ * ***************************************************************************************************************/
 namespace DotNet.Utilities
 {
     /// <summary>
@@ -19,10 +32,14 @@ namespace DotNet.Utilities
         public static void XmlSerilizeToFile(object objectToSerialize, string fliePath)
         {
             string dir = Path.GetDirectoryName(fliePath);
-            if (!System.IO.Directory.Exists(dir))
+            if (!string.IsNullOrWhiteSpace(dir))
             {
-                Directory.CreateDirectory(dir);
+                if (!System.IO.Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
             }
+            
 
             using (var stream = new FileStream(fliePath, FileMode.Create))
             {
