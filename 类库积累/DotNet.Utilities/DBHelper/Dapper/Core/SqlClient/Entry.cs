@@ -18,6 +18,42 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core.SqlClient
     {
         private DataBaseAccess _access;
         /// <summary>
+        /// 数据库访问实例
+        /// </summary>
+        public DataBaseAccess Access { get => _access; set => _access = value; }
+        /// <summary>
+        /// 主键字段名称
+        /// </summary>
+        private string PrimaryKey
+        {
+            get
+            {
+                Type t = typeof(T);
+                var pros = t.GetProperties();
+                foreach (var pro in pros)
+                {
+                    var keyInfo = pro.GetCustomAttribute(typeof(KeyInfoAttribute), true) as KeyInfoAttribute;
+                    if (keyInfo != null)
+                    {
+                        return pro.Name;
+                    }
+                }
+                return "Id";
+            }
+        }
+        /// <summary>
+        /// 表名
+        /// </summary>
+        private string TableName
+        {
+            get
+            {
+                Type t = typeof(T);
+                TableInfoAttribute tableInfo = t.GetCustomAttribute(typeof(TableInfoAttribute), true) as TableInfoAttribute;
+                return tableInfo != null ? tableInfo.TableName : typeof(T).Name;
+            }
+        }
+        /// <summary>
         /// 构造函数，默认数据库连接配置节为connString
         /// </summary>
         public Entry()
@@ -45,38 +81,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core.SqlClient
             _access.ConnStr = connStr;
         }
 
-        /// <summary>
-        /// 主键字段名称
-        /// </summary>
-        private  string PrimaryKey
-        {
-            get
-            {
-                Type t = typeof(T);
-                var pros = t.GetProperties();
-                foreach (var pro in pros)
-                {
-                    var keyInfo = pro.GetCustomAttribute(typeof(KeyInfoAttribute), true) as KeyInfoAttribute;
-                    if (keyInfo != null)
-                    {
-                        return pro.Name;
-                    }
-                }
-                return "Id";
-            }
-        }
-        /// <summary>
-        /// 表名
-        /// </summary>
-        private  string TableName
-        {
-            get
-            {
-                Type t = typeof(T);
-                TableInfoAttribute tableInfo = t.GetCustomAttribute(typeof(TableInfoAttribute), true) as TableInfoAttribute;
-                return tableInfo != null ? tableInfo.TableName : typeof(T).Name;
-            }
-        }
+
         /// <summary>
         /// 增加一条数据,返回增加之后的实体
         /// </summary>
@@ -222,6 +227,26 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core.SqlClient
                 strSql.AppendFormat(" where {0}", s1);
 
                 int i = _access.Execute(strSql.ToString(), entity);
+                transaction.Commit();
+                return i;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        /// <param name="id">需要删除的数据的id</param>
+        /// <returns>受影响的行数</returns>
+        public int Delete(int id)
+        {
+            using (IDbTransaction transaction = _access.Conn.BeginTransaction())
+            {
+
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append($"delete from [{TableName}] ");
+                strSql.Append($" where {PrimaryKey}=@id");
+
+                int i = _access.Execute(strSql.ToString(), new{id = id});
                 transaction.Commit();
                 return i;
             }

@@ -2,10 +2,8 @@
 using System.Data;
 using System.Reflection;
 using System.Text;
-using DotNet.Utilities.DBHelper;
-using DotNet.Utilities.DBHelper.CrDB;
+using DotNet.Utilities;
 using DotNet.Utilities.DBHelper.Dapper.Core.SqlClient;
-using DotNet.Utilities.DBHelper.Dapper.DataAnnotations;
 
 namespace ConsoleTest01
 {
@@ -13,7 +11,9 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-           
+            Entry<decimal> entry = new Entry<decimal>();
+            entry.
+
             System.Console.WriteLine("OK");
             System.Console.ReadKey();
 

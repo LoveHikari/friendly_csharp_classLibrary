@@ -10,9 +10,12 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
     /// <summary>
     /// 数据库访问类
     /// </summary>
-    internal class DataBaseAccess
+    public class DataBaseAccess
     {
         private string _connStr;
+        /// <summary>
+        /// 数据库连接字符串
+        /// </summary>
         public string ConnStr { get => _connStr; set => _connStr = value; }
         /// <summary>
         /// 数据库连接字符串
@@ -77,6 +80,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// 单个数据集查询
         /// </summary>
         /// <param name="sql"></param>
+        /// <param name="pre"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
         public List<TEntity> Query<TEntity>(string sql, Func<TEntity, bool> pre, object parms = null)
@@ -119,6 +123,7 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
         /// 单个数据集查询
         /// </summary>
         /// <param name="sql"></param>
+        /// <param name="selector"></param>
         /// <param name="parms"></param>
         /// <returns></returns>
         public TEntity FirstOrDefault<TEntity>(string sql, Func<TEntity, bool> selector, object parms = null)
@@ -127,6 +132,23 @@ namespace DotNet.Utilities.DBHelper.Dapper.Core
             {
                 return Conn.Query<TEntity>(sql, parms).Where(selector).FirstOrDefault();
             }
+        }
+        /// <summary>
+        /// 单个数据库查询
+        /// </summary>
+        /// <param name="sql">sql</param>
+        /// <param name="parms">参数</param>
+        /// <returns></returns>
+        public DataTable List(string sql, object parms = null)
+        {
+            DataTable dt = null;
+            using (Conn)
+            {
+                IDataReader reader = Conn.ExecuteReader(sql, parms);
+                dt = reader.ToDataTable();
+                reader.Dispose();
+            }
+            return dt;
         }
     }
 }

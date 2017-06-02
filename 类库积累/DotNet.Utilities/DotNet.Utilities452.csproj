@@ -101,6 +101,7 @@
     <Compile Include="FiddlerListeners.cs" />
     <Compile Include="FTPHelper.cs" />
     <Compile Include="HttpDownload.cs" />
+    <Compile Include="IDataReaderExtensions.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="IniHelper.cs" />
     <Compile Include="IntegerHelper.cs" />

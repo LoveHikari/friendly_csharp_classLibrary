@@ -408,7 +408,7 @@ namespace DotNet.Utilities
         #endregion
 
         #region 类型转换
-        
+
         /// <summary>
         /// 提取出所有数字，并转换为int，失败返回0
         /// </summary>
@@ -460,7 +460,27 @@ namespace DotNet.Utilities
             }
             return DateTime.MinValue;
         }
-        
+        /// <summary>
+        /// 如果字符串是数，则进行四舍五入，否则不做任何操作;如果是整数则返回整数，否则返回<paramref name="digits"/>位小数
+        /// </summary>
+        /// <param name="s">字符串</param>
+        /// <param name="digits">小数位数</param>
+        /// <returns></returns>
+        public static string Round(this string s, int digits)
+        {
+            double result;
+            if (double.TryParse(s, out result))  //如果是数字，则保留两位小数
+            {
+                result = Math.Round(result, digits);
+                if (Int32.TryParse(result.ToString(CultureInfo.InvariantCulture),out _))
+                {
+                    return result.ToString(CultureInfo.InvariantCulture);
+                }
+                string format = "{0:F" + digits + "}";
+                return string.Format(format, result);
+            }
+            return s;
+        }
         #endregion
 
     }
