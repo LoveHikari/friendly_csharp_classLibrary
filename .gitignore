@@ -2,10 +2,10 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/类库积累/.vs
-/类库积累/packages
-/类库积累/ConsoleTest01/obj
-/类库积累/ConsoleTest01/bin
-/类库积累/DotNet.Utilities/obj
-/类库积累/DotNet.Utilities/bin
+/FSLib.Extension/.vs
+/FSLib.Extension/packages
+/FSLib.Extension/ConsoleTest01/obj
+/FSLib.Extension/ConsoleTest01/bin
+/FSLib.Extension/DotNet.Utilities/obj
+/FSLib.Extension/DotNet.Utilities/bin
 

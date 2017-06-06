@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B369C8A2-C55D-414D-BBBB-CCCF04B99822}</ProjectGuid>
+    <ProjectGuid>{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DotNet.Utilities</RootNamespace>
@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\net452\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET452;C6</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\DotNet.Utilities.xml</DocumentationFile>
@@ -65,10 +65,15 @@
       <HintPath>..\引用dll\SQLite\SQLite-netx4.0-x64\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\引用dll\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="ThoughtWorks.QRCode">
@@ -99,6 +104,8 @@
     <Compile Include="DynamicFactory.cs" />
     <Compile Include="ExChangeChinese.cs" />
     <Compile Include="FiddlerListeners.cs" />
+    <Compile Include="Forms\AutoSizeForm.cs" />
+    <Compile Include="Forms\FormProcess.cs" />
     <Compile Include="FTPHelper.cs" />
     <Compile Include="HttpDownload.cs" />
     <Compile Include="IDataReaderExtensions.cs" />
@@ -107,6 +114,7 @@
     <Compile Include="IntegerHelper.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Log4NetHelper.cs" />
+    <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
@@ -114,6 +122,7 @@
     <Compile Include="PublicInfo.cs" />
     <Compile Include="RandomHelper.cs" />
     <Compile Include="RegexUtil.cs" />
+    <Compile Include="SerializableDictionary.cs" />
     <Compile Include="Similarity\LevenshteinDistance\LevenshteinDistance.cs" />
     <Compile Include="Similarity\SimHash\Analysers\SimHashAnalyser.cs" />
     <Compile Include="Similarity\SimHash\Interfaces\IAnalyser.cs" />
@@ -135,6 +144,7 @@
     <Compile Include="ThreadPoolHelper.cs" />
     <Compile Include="WaterImageManage.cs" />
     <Compile Include="LogHelper.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
