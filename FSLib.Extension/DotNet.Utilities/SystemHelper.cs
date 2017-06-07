@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
+using System.Xml;
 
 namespace DotNet.Utilities
 {
@@ -9,6 +11,29 @@ namespace DotNet.Utilities
     /// </summary>
     public class SystemHelper
     {
+        /// <summary>
+        /// 获取经纬度
+        /// </summary>
+        /// <param name="address">地址</param>
+        /// <param name="lng">经度</param>
+        /// <param name="lat">纬度</param>
+        /// <remarks>http://www.cnblogs.com/huangfr/archive/2012/03/27/2420464.html</remarks>
+        public static void GetLocation(string address, out string lng, out string lat)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("http://api.map.baidu.com/geocoder?address=" + address);
+            DataTable dt = ConvertHelper.XmlToDataSet(doc.InnerXml).Tables["location"];
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                lng = dt.Rows[0]["lng"].ToString();
+                lat = dt.Rows[0]["lat"].ToString();
+            }
+            else
+            {
+                lng = "";
+                lat = "";
+            }
+        }
         /// <summary>
         /// 检测端口号
         /// </summary>
@@ -46,6 +71,73 @@ namespace DotNet.Utilities
             }
             p.Close();
             return use;
+        }
+
+        /// <summary>
+        /// 设置环境变量
+        /// </summary>
+        /// <param name="variable">环境变量名</param>
+        /// <param name="value">值</param>
+        /// <remarks>http://blog.chinaunix.net/uid-25498312-id-4085179.html</remarks>
+        public static void SetVariable(string variable, string value)
+        {
+            string pathlist = Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.Machine);
+            if (pathlist != null)
+            {
+                pathlist = pathlist.TrimEnd(';');
+                string[] list = pathlist.Split(';');
+                bool isPathExist = false;
+
+                foreach (string item in list)
+                {
+                    if (item == value)
+                        isPathExist = true;
+                }
+                if (!isPathExist)
+                {
+                    Environment.SetEnvironmentVariable(variable, pathlist + ";" + value,
+                        EnvironmentVariableTarget.Machine);
+                }
+            }
+            else
+            {
+                Environment.SetEnvironmentVariable(variable, value, EnvironmentVariableTarget.Machine);
+            }
+
+        }
+
+        /// <summary>
+        /// 执行cmd命令
+        /// </summary>
+        /// <param name="cmd">cmd命令</param>
+        /// <returns>执行结果</returns>
+        /// <remarks>http://blog.csdn.net/qq_26597393/article/details/69945030</remarks>
+        public static string RunCmd(string cmd)
+        {
+            string output = "";
+            cmd = cmd.Trim().TrimEnd('&') + "&exit"; //说明：不管命令是否成功均执行exit命令，否则当调用ReadToEnd()方法时，会处于假死状态  
+            using (Process p = new Process())
+            {
+                p.StartInfo.FileName = @"cmd.exe";
+                p.StartInfo.UseShellExecute = false; //是否使用操作系统shell启动  
+                p.StartInfo.RedirectStandardInput = true; //接受来自调用程序的输入信息  
+                p.StartInfo.RedirectStandardOutput = true; //由调用程序获取输出信息  
+                p.StartInfo.RedirectStandardError = true; //重定向标准错误输出  
+                p.StartInfo.CreateNoWindow = false; //不显示程序窗口  
+
+                p.Start(); //启动程序
+
+                //向cmd窗口写入命令
+                p.StandardInput.WriteLine(cmd);
+                p.StandardInput.AutoFlush = true;
+
+                //获取cmd窗口的输出信息  
+                output = p.StandardOutput.ReadToEnd();
+
+                p.WaitForExit(); //等待程序执行完退出进程  
+                p.Close();
+            }
+            return output;
         }
     }
 }

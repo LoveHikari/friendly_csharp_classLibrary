@@ -119,9 +119,9 @@
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />
-    <Compile Include="PublicInfo.cs" />
     <Compile Include="RandomHelper.cs" />
     <Compile Include="RegexUtil.cs" />
+    <Compile Include="RegistryHelper.cs" />
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="Similarity\LevenshteinDistance\LevenshteinDistance.cs" />
     <Compile Include="Similarity\SimHash\Analysers\SimHashAnalyser.cs" />
@@ -176,9 +176,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
