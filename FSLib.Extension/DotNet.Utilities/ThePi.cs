@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -42,7 +41,7 @@ using System.Text.RegularExpressions;
            }
        }
 */
-namespace DotNet.Utilities
+namespace System
 {
     // 用反正切展式计算圆周率 
     // 例如: pi= + 16 * arctan(1/5) - 4 * arctan(1/239) [Machin] 

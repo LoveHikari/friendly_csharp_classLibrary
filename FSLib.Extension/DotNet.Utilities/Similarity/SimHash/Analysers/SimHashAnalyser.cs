@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DotNet.Utilities.Similarity.SimHash.Interfaces;
-using DotNet.Utilities.Similarity.SimHash.Tokenisers;
+using System.Similarity.SimHash.Interfaces;
+using System.Similarity.SimHash.Tokenisers;
 
 // Created by: Aref Karimi
 // htp://AspGuy.wordpress.com
@@ -23,7 +23,7 @@ using DotNet.Utilities.Similarity.SimHash.Tokenisers;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities.Similarity.SimHash.Analysers
+namespace System.Similarity.SimHash.Analysers
 {
     /// <summary>
     /// SimHash计算文本相似度类

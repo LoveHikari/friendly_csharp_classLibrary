@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 /******************************************************************************************************************
  * 
@@ -24,7 +23,7 @@ using System.Threading;
  *              Console.Out.WriteLine(ThreadPoolHelper.ThreadPoolEndFlag);
  *          }
  * ****************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 

@@ -13,9 +13,7 @@
  * 
  * ***************************************************************************************************************/
 
-using System;
-
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// DateTime 帮助类

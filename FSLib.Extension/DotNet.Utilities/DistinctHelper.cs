@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 /******************************************************************************************************************
@@ -16,7 +15,7 @@ using System.Linq;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// Distinct 扩展类

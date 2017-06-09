@@ -1,6 +1,6 @@
-using System;
 using System.IO;
 using System.Xml.Serialization;
+
 /******************************************************************************************************************
  * 
  * 
@@ -15,7 +15,7 @@ using System.Xml.Serialization;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
 	/// XML序列化支持类

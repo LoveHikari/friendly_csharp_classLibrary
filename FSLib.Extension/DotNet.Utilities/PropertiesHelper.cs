@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 
 /******************************************************************************************************************
@@ -16,7 +15,7 @@ using System.IO;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// Properties配置文件帮助类

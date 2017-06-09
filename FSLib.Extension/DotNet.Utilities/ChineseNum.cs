@@ -4,9 +4,7 @@
  * author:YUXiaoWei
  ***/
 
-using System;
-
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 转中文数字

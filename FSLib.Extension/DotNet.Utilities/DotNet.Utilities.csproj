@@ -7,7 +7,7 @@
     <ProjectGuid>{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotNet.Utilities</RootNamespace>
+    <RootNamespace>System</RootNamespace>
     <AssemblyName>DotNet.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,6 +55,9 @@
     <Reference Include="MySql.Data">
       <HintPath>..\引用dll\MySql\v4.5.1\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\引用dll\Json90r1\Net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.XLS">
       <HintPath>..\引用dll\Spire.XLS.7.10.79\lib\net40-client\Spire.XLS.dll</HintPath>
     </Reference>
@@ -99,7 +102,7 @@
     <Compile Include="DBHelper\CrDB\DBHelper2.cs" />
     <Compile Include="DBHelper\CrDB\IDBHelper.cs" />
     <Compile Include="DBHelper\DataAccess\MySqlHelper.cs" />
-    <Compile Include="DEncryptUtils.cs" />
+    <Compile Include="DEncryptHelper.cs" />
     <Compile Include="DistinctHelper.cs" />
     <Compile Include="DynamicFactory.cs" />
     <Compile Include="ExChangeChinese.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Log4NetHelper.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
+    <Compile Include="NewtonsoftJsonHelper.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />

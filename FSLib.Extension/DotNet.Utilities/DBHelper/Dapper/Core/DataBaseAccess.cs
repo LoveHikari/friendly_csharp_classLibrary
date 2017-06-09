@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 
-namespace DotNet.Utilities.DBHelper.Dapper.Core
+namespace System.DBHelper.Dapper.Core
 {
     /// <summary>
     /// 数据库访问类

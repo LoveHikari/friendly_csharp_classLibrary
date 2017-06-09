@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -9,7 +8,7 @@ using System.Xml;
  *  3. 创建日期：2010-3-19
  *  4. 最后修改日期：2010-3-19
 **/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 处理数据类型转换，数制转换、编码转换相关的类

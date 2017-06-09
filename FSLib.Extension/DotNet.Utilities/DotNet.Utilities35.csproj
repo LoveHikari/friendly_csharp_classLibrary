@@ -7,7 +7,7 @@
     <ProjectGuid>{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotNet.Utilities</RootNamespace>
+    <RootNamespace>System</RootNamespace>
     <AssemblyName>DotNet.Utilities</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 /******************************************************************************************************************
@@ -16,7 +15,7 @@ using System.Threading;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 请求拦截

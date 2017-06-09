@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
@@ -18,7 +17,7 @@ using System.Threading;
 * 
 * 
 * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper.DataAccess
+namespace System.DBHelper.DataAccess
 {
     /// <summary>
     /// sqlite数据库操作类

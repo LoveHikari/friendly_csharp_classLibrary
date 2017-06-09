@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -18,7 +17,7 @@ using System.Xml.Serialization;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// <see cref="Dictionary{TKey,TValue}"/> 的可序列化形式

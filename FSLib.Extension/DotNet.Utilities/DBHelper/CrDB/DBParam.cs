@@ -1,7 +1,6 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 
-namespace DotNet.Utilities.DBHelper.CrDB
+namespace System.DBHelper.CrDB
 {
     /// <summary>
     /// DbCommand 的参数

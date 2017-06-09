@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Common;
 
-namespace DotNet.Utilities.DBHelper.CrDB
+namespace System.DBHelper.CrDB
 {
     /// <summary>
     /// 跨数据库的操作类的接口

@@ -16,7 +16,7 @@ using System.Web;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// html与ubb

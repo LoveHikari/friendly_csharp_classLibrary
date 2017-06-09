@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 /******************************************************************************************************************
 * 
@@ -14,7 +13,7 @@ using System.Runtime.InteropServices;
 * 调用示列：调用AllocConsole方法显示控制台，调用FreeConsole方法关闭控制台
 * 
 * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 与控制台交互

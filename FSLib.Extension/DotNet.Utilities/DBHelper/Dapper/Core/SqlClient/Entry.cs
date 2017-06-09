@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
+using System.DBHelper.Dapper.DataAnnotations;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using DotNet.Utilities.DBHelper.Dapper.DataAnnotations;
 
-namespace DotNet.Utilities.DBHelper.Dapper.Core.SqlClient
+namespace System.DBHelper.Dapper.Core.SqlClient
 {
     /// <summary>
     /// Dapper数据库访问核心类

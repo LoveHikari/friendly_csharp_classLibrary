@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -17,7 +16,7 @@ using System.Data.SqlClient;
 * 
 * 
 * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper.DataAccess
+namespace System.DBHelper.DataAccess
 {
     /// <summary>
     /// sql server数据库操作类

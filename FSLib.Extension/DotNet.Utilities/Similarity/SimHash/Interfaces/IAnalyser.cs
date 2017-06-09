@@ -4,7 +4,7 @@
 // On:  02/02/2012
 // 
 
-namespace DotNet.Utilities.Similarity.SimHash.Interfaces
+namespace System.Similarity.SimHash.Interfaces
 {
     /// <summary>
     /// 

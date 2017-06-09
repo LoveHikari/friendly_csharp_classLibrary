@@ -14,12 +14,11 @@
  *   
 -*/
 
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>   
     /// 图片位置   

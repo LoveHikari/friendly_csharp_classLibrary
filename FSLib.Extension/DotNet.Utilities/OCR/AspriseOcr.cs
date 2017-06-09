@@ -1,6 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
+
 /******************************************************************************************************************
  * 
  * 
@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities.OCR
+namespace System.OCR
 {
     /// <summary>
     /// Asprise 方式识别

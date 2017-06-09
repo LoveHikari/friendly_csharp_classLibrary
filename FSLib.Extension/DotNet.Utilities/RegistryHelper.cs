@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
+
 /******************************************************************************************************************
  * 
  * 
@@ -15,7 +15,7 @@ using Microsoft.Win32.SafeHandles;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 注册表操作类

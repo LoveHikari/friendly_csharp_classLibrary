@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -7,7 +6,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 
-namespace DotNet.Utilities.DBHelper.CrDB
+namespace System.DBHelper.CrDB
 {
     /// <summary>
     /// 跨数据库的操作类，父类，不可new

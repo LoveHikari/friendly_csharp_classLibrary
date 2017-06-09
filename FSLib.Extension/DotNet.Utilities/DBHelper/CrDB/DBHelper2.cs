@@ -22,7 +22,7 @@
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper.CrDB
+namespace System.DBHelper.CrDB
 {
     /// <summary>
     /// 数据工厂类,实现了跨数据库的操作

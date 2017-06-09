@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
  * date:2016-5-31
  * author:YUXiaoWei
  ***/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 汉字转拼音静态类,包括功能全拼和缩写，方法全部是静态的

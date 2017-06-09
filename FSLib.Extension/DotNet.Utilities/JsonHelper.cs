@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -23,7 +22,7 @@ using System.Web.Script.Serialization;
  * 
  * ***************************************************************************************************************/
 
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// json 帮助类

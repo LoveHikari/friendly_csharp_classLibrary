@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using MySql.Data.MySqlClient;
@@ -17,7 +16,7 @@ using MySql.Data.MySqlClient;
      * 
      * 
      * ***************************************************************************************************************/
-namespace DotNet.Utilities.DBHelper.DataAccess
+namespace System.DBHelper.DataAccess
 {
     /// <summary>
     /// mysql 数据库操作类

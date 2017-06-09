@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotNet.Utilities
+﻿namespace System
 {
     /// <summary>
     /// <see cref="Math"/> 扩展类

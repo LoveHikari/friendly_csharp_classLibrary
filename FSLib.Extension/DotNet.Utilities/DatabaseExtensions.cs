@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Data.Entity;
 
 /******************************************************************************************************************
  * 
@@ -20,7 +19,7 @@ using System.Data.Entity;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// EF Database 扩展类

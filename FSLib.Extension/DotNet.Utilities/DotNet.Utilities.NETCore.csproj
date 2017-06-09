@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <RootNamespace>System</RootNamespace>
+    <AssemblyName>DotNet.Utilities</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Log4net.config" />
+    <None Remove="packages.config" />
+    <None Remove="README.txt" />
+  </ItemGroup>
+
+</Project>

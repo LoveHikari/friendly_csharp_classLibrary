@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// ftp操作类

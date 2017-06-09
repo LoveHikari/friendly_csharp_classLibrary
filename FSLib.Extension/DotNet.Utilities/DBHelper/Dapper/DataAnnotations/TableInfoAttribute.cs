@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotNet.Utilities.DBHelper.Dapper.DataAnnotations
+﻿namespace System.DBHelper.Dapper.DataAnnotations
 {
     /// <summary>
     /// 指定类将映射到的数据库表。

@@ -4,11 +4,10 @@
 // On:  02/02/2012
 // 
 
-using System;
 using System.Collections.Generic;
-using DotNet.Utilities.Similarity.SimHash.Interfaces;
+using System.Similarity.SimHash.Interfaces;
 
-namespace DotNet.Utilities.Similarity.SimHash.Tokenisers
+namespace System.Similarity.SimHash.Tokenisers
 {
     #region
 

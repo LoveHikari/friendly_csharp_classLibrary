@@ -1,5 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 /******************************************************************************************************************
@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// <see cref="String"/> 帮助类
@@ -58,7 +58,18 @@ namespace DotNet.Utilities
             }
             return value1.Substring(index - length + 1, length);
         }
-
+        /// <summary>
+        /// 空格数量
+        /// </summary>
+        /// <param name="spaceNum">空格数量</param>
+        /// <returns></returns>
+        public static string Space(int spaceNum)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < spaceNum; i++)
+                stringBuilder.Append(" ");
+            return stringBuilder.ToString();
+        }
     }
     /// <summary>
     /// <see cref="String"/> 扩展方法
@@ -483,5 +494,43 @@ namespace DotNet.Utilities
         }
         #endregion
 
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="culture">一个对象，用于提供区域性特定的大小写规则</param>
+        /// <returns></returns>
+        public static string ToFirstUpper(this string str, CultureInfo culture = null)
+        {
+            if (culture == null)
+            {
+                str = str.Substring(0, 1).ToUpper() + str.Substring(1);
+            }
+            else
+            {
+                str = str.Substring(0, 1).ToUpper(culture) + str.Substring(1);
+            }
+            return str;
+            //s = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(s)
+        }
+
+        /// <summary>
+        /// 首字母小写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="culture">一个对象，用于提供区域性特定的大小写规则</param>
+        /// <returns></returns>
+        public static string ToFirstLower(this string str, CultureInfo culture = null)
+        {
+            if (culture == null)
+            {
+                str = str.Substring(0, 1).ToLower() + str.Substring(1);
+            }
+            else
+            {
+                str = str.Substring(0, 1).ToLower(culture) + str.Substring(1);
+            }
+            return str;
+        }
     }
 }

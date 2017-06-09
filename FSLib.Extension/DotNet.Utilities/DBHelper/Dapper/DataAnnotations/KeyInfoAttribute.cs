@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotNet.Utilities.DBHelper.Dapper.DataAnnotations
+﻿namespace System.DBHelper.Dapper.DataAnnotations
 {
     /// <summary>
     /// 表示唯一标识实体的一个或多个属性。

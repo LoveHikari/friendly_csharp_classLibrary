@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+
 /******************************************************************************************************************
  * 
  * 
@@ -19,7 +20,7 @@ using System.Windows.Forms;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities.Forms
+namespace System.Forms
 {
     /// <summary>
     /// WinForm窗体及其控件的自适应

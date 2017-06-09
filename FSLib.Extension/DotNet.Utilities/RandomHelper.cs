@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Cryptography;
 
 /******************************************************************************************************************
@@ -15,7 +14,7 @@ using System.Security.Cryptography;
  * 
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 随机数帮助类

@@ -21,9 +21,7 @@
  * 
  * ***************************************************************************************************************/
 
-using System;
-
-namespace DotNet.Utilities.Similarity.LevenshteinDistance
+namespace System.Similarity.LevenshteinDistance
 {
     /// <summary>
     /// 

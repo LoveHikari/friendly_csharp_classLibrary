@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
@@ -20,7 +19,7 @@ using ThoughtWorks.QRCode.Codec;
  * 
  * ***************************************************************************************************************/
 
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// 图片处理类

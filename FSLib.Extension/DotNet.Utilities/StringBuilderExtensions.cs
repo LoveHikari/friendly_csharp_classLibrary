@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 /******************************************************************************************************************
  * 
@@ -15,7 +14,7 @@ using System.Text;
  *
  * 
  * ***************************************************************************************************************/
-namespace DotNet.Utilities
+namespace System
 {
     /// <summary>
     /// StringBuilder 扩展类
@@ -31,7 +30,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static StringBuilder AppendSpace(this StringBuilder sb, int spaceNum, string text)
         {
-            sb.Append(Space(spaceNum));
+            sb.Append(StringHelper.Space(spaceNum));
             sb.Append(text);
             return sb;
         }
@@ -44,7 +43,7 @@ namespace DotNet.Utilities
         /// <returns></returns>
         public static StringBuilder AppendSpaceLine(this StringBuilder sb, int spaceNum, string text)
         {
-            sb.Append(Space(spaceNum));
+            sb.Append(StringHelper.Space(spaceNum));
             sb.AppendLine(text);
             return sb;
         }
@@ -61,13 +60,6 @@ namespace DotNet.Utilities
             sb.AppendLine();
             return sb;
         }
-
-        private static string Space(int spaceNum)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < spaceNum; i++)
-                stringBuilder.Append(" ");
-            return stringBuilder.ToString();
-        }
+       
     }
 }
