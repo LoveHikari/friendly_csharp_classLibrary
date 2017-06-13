@@ -55,8 +55,8 @@
     <Reference Include="MySql.Data">
       <HintPath>..\引用dll\MySql\v4.5.1\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\引用dll\Json90r1\Net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Spire.XLS">
       <HintPath>..\引用dll\Spire.XLS.7.10.79\lib\net40-client\Spire.XLS.dll</HintPath>
@@ -87,6 +87,8 @@
     <Compile Include="Chinese2Spell.cs" />
     <Compile Include="ChineseNum.cs" />
     <Compile Include="CodeCommon.cs" />
+    <Compile Include="Collection\CollectionExtensions.cs" />
+    <Compile Include="Collection\IEnumerableExtensions.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="DatabaseExtensions.cs" />
@@ -115,15 +117,15 @@
     <Compile Include="ImageHelper.cs" />
     <Compile Include="IniHelper.cs" />
     <Compile Include="IntegerHelper.cs" />
-    <Compile Include="JsonHelper.cs" />
     <Compile Include="Log4NetHelper.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
-    <Compile Include="NewtonsoftJsonHelper.cs" />
+    <Compile Include="JsonHelper.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />
     <Compile Include="RandomHelper.cs" />
+    <Compile Include="Reflection\PropertyInfoExtensions.cs" />
     <Compile Include="RegexUtil.cs" />
     <Compile Include="RegistryHelper.cs" />
     <Compile Include="SerializableDictionary.cs" />

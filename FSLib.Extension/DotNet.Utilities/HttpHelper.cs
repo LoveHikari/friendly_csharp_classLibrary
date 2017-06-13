@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 
 /******************************************************************************************************************
  * 
@@ -290,6 +291,41 @@ namespace System
                     .Replace("\n", "").Replace("&", "%26");
             return result;
         }
+        ///<summary>
+        ///清除HTML标记
+        ///</summary>
+        ///<param name="htmlstring">包括HTML的源码</param>
+        ///<returns>已经去除后的文字</returns>
+        public static string NoHtml(string htmlstring)
+        {
+            //删除脚本   
+            htmlstring = Regex.Replace(htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
+
+            //删除HTML   
+            Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
+            htmlstring = regex.Replace(htmlstring, "");
+            htmlstring = Regex.Replace(htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"([\r\n])[\s]+", "", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"-->", "", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"<!--.*", "", RegexOptions.IgnoreCase);
+
+            htmlstring = Regex.Replace(htmlstring, @"&(quot|#34);", "\"", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(amp|#38);", "&", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(lt|#60);", "<", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(gt|#62);", ">", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(iexcl|#161);", "\xa1", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(cent|#162);", "\xa2", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(pound|#163);", "\xa3", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&(copy|#169);", "\xa9", RegexOptions.IgnoreCase);
+            htmlstring = Regex.Replace(htmlstring, @"&#(\d+);", "", RegexOptions.IgnoreCase);
+
+            htmlstring.Replace("<", "");
+            htmlstring.Replace(">", "");
+            htmlstring.Replace("\r\n", "");
+
+            return htmlstring;
+        }
         /// <summary> 
         /// 上传图片文件 
         /// </summary> 
@@ -403,33 +439,15 @@ namespace System
         #endregion
 
         #region 私有方法
-
-        ///// <summary>
-        ///// 设置请求头
-        ///// </summary>
-        ///// <param name="header">HttpWebRequest对象的header属性</param>
-        ///// <param name="headerItem">header的属性对象</param>
-        ///// <example>调用说明：SetHeaderValue(request.Headers, headerItem);</example>
-        //private static void SetHeaderValue(WebHeaderCollection header, HeaderItem headerItem)
-        //{
-        //    var property = typeof(WebHeaderCollection).GetProperty("InnerCollection",
-        //        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        //    if (property != null && headerItem != null)
-        //    {
-        //        var collection = property.GetValue(header, null) as System.Collections.Specialized.NameValueCollection;
-        //        if (headerItem.Header != null)
-        //        {
-        //            foreach (KeyValuePair<string, string> pair in headerItem.Header)
-        //            {
-        //                if (collection != null) collection[pair.Key] = pair.Value;
-        //            }
-        //        }
-        //    }
-        //}
-
+        /// <summary>
+        /// 设置请求头
+        /// </summary>
+        /// <param name="request">HttpWebRequest对象</param>
+        /// <param name="headerItem">header的属性对象</param>
+        /// <example>调用说明：SetHeaderValue(request.Headers, headerItem);</example>
         private static void SetHeaderValue(ref HttpWebRequest request, Hashtable headerItem)
         {
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "text/html";
             request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
             request.Accept = "*/*";
             if (headerItem != null)
@@ -699,30 +717,5 @@ namespace System
 
         #endregion
     }
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //public class HeaderItem
-    //{
-    //    /// <summary>
-    //    /// 请求协议
-    //    /// </summary>
-    //    public string Method { get; set; } = "POST";
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public string ContentType { get; set; } = "text/html";
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public string Accept { get; set; } = "*/*";
-    //    /// <summary>
-    //    /// 
-    //    /// </summary>
-    //    public IDictionary<string, string> Header { get; set; }
-    //}
+    
 }

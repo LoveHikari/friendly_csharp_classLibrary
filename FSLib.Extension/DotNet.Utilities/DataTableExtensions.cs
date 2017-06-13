@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Reflection;
 
 /******************************************************************************************************************
@@ -28,7 +29,7 @@ namespace System
         /// <see cref="DataTable"/> 转 <see cref="List{T}"/>
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="dt">DataTable数据</param>
+        /// <param name="dt"><see cref="DataTable"/> 数据</param>
         /// <returns>模型列表</returns>
         public static List<T> ToList<T>(this DataTable dt) where T : class ,new()
         {
@@ -45,7 +46,52 @@ namespace System
             return ts;
 
         }
+        /// <summary>   
+        /// 将实体类列表转换成 <see cref="DataTable"/>
+        /// </summary>   
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="objlist">实体</param>
+        /// <returns><see cref="DataTable"/></returns>
+        public static DataTable ToDataTable<T>(this IList<T> objlist)
+        {
+            if (objlist == null || objlist.Count <= 0)
+            {
+                return null;
+            }
+            DataTable dt = new DataTable(typeof(T).Name);
+            DataColumn column;
+            DataRow row;
 
+            System.Reflection.PropertyInfo[] myPropertyInfo = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (T t in objlist)
+            {
+                if (t == null)
+                {
+                    continue;
+                }
+
+                row = dt.NewRow();
+
+                for (int i = 0, j = myPropertyInfo.Length; i < j; i++)
+                {
+                    System.Reflection.PropertyInfo pi = myPropertyInfo[i];
+
+                    string name = pi.Name;
+
+                    if (dt.Columns[name] == null)
+                    {
+                        column = new DataColumn(name, pi.PropertyType);
+                        dt.Columns.Add(column);
+                    }
+
+                    row[name] = pi.GetValue(t, null);
+                }
+
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
         /// <summary>
         /// 将 <see cref="DataRow"/> 转成实体
         /// </summary>
@@ -68,22 +114,7 @@ namespace System
                     //取值
                     object value = dr[tempName];
                     //如果非空，则赋给对象的属性 
-                    if (value != DBNull.Value)
-                    {
-                        if (pi.PropertyType.FullName.IndexOf(typeof(Int32).FullName, StringComparison.CurrentCultureIgnoreCase) > -1) //如果类型是int
-                        {
-                            pi.SetValue(t, value.ToInt32(), null);
-                        }
-                        else if (pi.PropertyType.FullName.IndexOf(typeof(String).FullName, StringComparison.CurrentCultureIgnoreCase) > -1) //如果类型是string
-                        {
-                            pi.SetValue(t, value.ToString(), null);
-                        }
-                        else
-                        {
-                            pi.SetValue(t, value, null);
-                        }
-
-                    }
+                    pi.SetValue(t, value, CultureInfo.CurrentCulture);
                 }
 
             }
@@ -111,7 +142,7 @@ namespace System
         /// </summary>  
         /// <param name="originalTab">需要分解的表</param>  
         /// <param name="rowsNum">每个表包含的数据量</param>  
-        /// <returns></returns>  
+        /// <returns></returns>
         public static DataSet SplitDataTable(this DataTable originalTab, int rowsNum)
         {
             //获取所需创建的表数量  
