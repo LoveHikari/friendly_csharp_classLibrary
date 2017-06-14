@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest01", "ConsoleTest01\ConsoleTest01.csproj", "{79E59ABA-9F41-43F4-A0F1-7CB45BDD8A06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Utilities", "DotNet.Utilities\DotNet.Utilities.csproj", "{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.Common35", "DotNet.Utilities\FsLib.Common35.csproj", "{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Utilities35", "DotNet.Utilities\DotNet.Utilities35.csproj", "{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.Common452", "DotNet.Utilities\FsLib.Common452.csproj", "{B369C8A2-C55D-414D-BBBB-CCCF04B99822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Utilities452", "DotNet.Utilities\DotNet.Utilities452.csproj", "{B369C8A2-C55D-414D-BBBB-CCCF04B99822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsLib.Common.NETCore", "DotNet.Utilities\FsLib.Common.NETCore.csproj", "{94F00C25-B7E5-4BB4-B1F9-AD0813299A8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet.Utilities.NETCore", "DotNet.Utilities\DotNet.Utilities.NETCore.csproj", "{94F00C25-B7E5-4BB4-B1F9-AD0813299A8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.Common", "FsLib.Common\FsLib.Common.csproj", "{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{79E59ABA-9F41-43F4-A0F1-7CB45BDD8A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E59ABA-9F41-43F4-A0F1-7CB45BDD8A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E59ABA-9F41-43F4-A0F1-7CB45BDD8A06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{94F00C25-B7E5-4BB4-B1F9-AD0813299A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94F00C25-B7E5-4BB4-B1F9-AD0813299A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94F00C25-B7E5-4BB4-B1F9-AD0813299A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0AAD43-86BF-4D11-B291-88FF7BF1C509}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
