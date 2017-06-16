@@ -177,7 +177,7 @@ namespace System
         /// <param name="func"></param>
         /// <para>Cast(new { Name = "Tom", Age = 25 }, () => new { Name = "", Age = 0 });</para>
         /// <returns></returns>
-        public static T Cast<T>(object obj, Func<T> func)
+        public static T Cast<T>(object obj, Func<T> func) where T : class,new()
         {
             return (T)obj;
         }
@@ -189,7 +189,7 @@ namespace System
         /// <param name="type">匿名类型</param>
         /// <para>Cast(new { Name = "Tom", Age = 25 }, new { Name = "", Age = 0 });</para>
         /// <returns></returns>
-        public static T Cast<T>(object obj, T type)
+        public static T Cast<T>(object obj, T type) where T : class, new()
         {
             return (T)obj;
         }

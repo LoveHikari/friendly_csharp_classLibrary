@@ -136,7 +136,23 @@ namespace System
             }
             return d;
         }
-
+        /// <summary>
+        /// 将<see cref="DataColumn"/> 转为集合
+        /// </summary>
+        /// <typeparam name="T">指定集合类型</typeparam>
+        /// <param name="dc"><see cref="DataColumn"/> 数据</param>
+        /// <returns></returns>
+        public static List<T> ToList<T>(this DataColumn dc) 
+        {
+            DataTable dt = dc.Table;
+            string columnName = dc.ColumnName;
+            List<T> list = new List<T>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add((T)Convert.ChangeType(row[columnName], typeof(T)));
+            }
+            return list;
+        }
         /// <summary>  
         /// 分解数据表  
         /// </summary>  

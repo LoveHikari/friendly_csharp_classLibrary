@@ -117,9 +117,10 @@
     <Compile Include="Chinese2Spell.cs" />
     <Compile Include="ChineseNum.cs" />
     <Compile Include="CodeCommon.cs" />
+    <Compile Include="Collection\ArrayHelper.cs" />
     <Compile Include="Collection\CollectionExtensions.cs" />
     <Compile Include="Collection\IEnumerableExtensions.cs" />
-    <Compile Include="Collection\ListExtensions.cs" />
+    <Compile Include="Collection\ListHelper.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="DatabaseExtensions.cs" />

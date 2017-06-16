@@ -62,6 +62,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FsLib.Common\FsLib.Common.csproj">
+      <Project>{fc0aad43-86bf-4d11-b291-88ff7bf1c509}</Project>
+      <Name>FsLib.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
