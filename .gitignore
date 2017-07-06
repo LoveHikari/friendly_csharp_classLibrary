@@ -10,4 +10,7 @@
 /FSLib.Extension/FsLib.Common/bin
 /FSLib.Extension/FsLib.Common.Standard/obj
 /FSLib.Extension/FsLib.Common.Standard/bin
+/FSLib.Extension/FsLib.EntityFramework/obj
+/FSLib.Extension/FsLib.EntityFramework/bin
 
+*.user

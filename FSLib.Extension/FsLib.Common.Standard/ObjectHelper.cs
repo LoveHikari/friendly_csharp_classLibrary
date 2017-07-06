@@ -18,6 +18,7 @@ namespace System
     /// <summary>
     /// Object 扩展类
     /// </summary>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never), System.ComponentModel.Browsable(false)]
     public static class ObjectExtensions
     {
         /// <summary>
@@ -134,6 +135,30 @@ namespace System
                 result = defaultValue;
             return result;
         }
-        
+        /// <summary>
+        /// 转换成时间类型，失败则得到最小时间
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this object s)
+        {
+            return (DateTime)s.ToDateTime(DateTime.MaxValue);
+        }
+        /// <summary>
+        /// 转换成时间类型，失败则得到最小时间
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime? ToDateTime(this object s, DateTime? value)
+        {
+            if (s == null) return value;
+            DateTime result;
+            if (DateTime.TryParse(s.ToString(), out result))
+            {
+                return result;
+            }
+            return value;
+        }
     }
 }

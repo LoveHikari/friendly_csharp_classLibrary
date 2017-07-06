@@ -17,14 +17,29 @@ namespace System.DBHelper.CrDB
         private string _providerName;
         
         private string _connectionString;
+        private DbCommand _dbCommand;
         /// <summary>
         /// 数据提供者
         /// </summary>
-        public string ProviderName{get { return _providerName; } set { _providerName = value; }}
+        public string ProviderName
+        {
+            get => _providerName;
+            set => _providerName = value;
+        }
+
         /// <summary>
         /// 连接字符串
         /// </summary>
-        public string ConnectionString { get { return _connectionString; } set { _connectionString = value; } }
+        public string ConnectionString
+        {
+            get => _connectionString;
+            set => _connectionString = value;
+        }
+        /// <summary>
+        /// 数据库执行过程，只读
+        /// </summary>
+        public DbCommand DbCommand => _dbCommand;
+
         /// <summary>
         /// 构造函数，使该类不可new
         /// </summary>
@@ -148,6 +163,7 @@ namespace System.DBHelper.CrDB
                     sqlp.ParameterName = param.FieldName;
                     sqlp.DbType = param.DbType;
                     sqlp.Size = param.Size;
+                    sqlp.Direction = param.Direction;
 
                     if (param.DbValue == null)
                     {
@@ -608,7 +624,7 @@ namespace System.DBHelper.CrDB
             try
             {
                 dataAdapter.Fill(result);
-                
+                _dbCommand = ((System.Data.SqlClient.SqlDataAdapter) dataAdapter).SelectCommand;
             }
             catch (Exception ex)
             {

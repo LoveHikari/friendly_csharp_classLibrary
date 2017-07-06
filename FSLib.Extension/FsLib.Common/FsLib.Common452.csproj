@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\net452\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET452;C6;NET_GT_6</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET452;NET_GT_6</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\FsLib.Common.xml</DocumentationFile>
@@ -39,50 +39,67 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\引用dll\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="FiddlerCore3dot5">
-      <HintPath>..\引用dll\Fiddler\FiddlerCore3dot5.dll</HintPath>
+      <HintPath>..\dllImport\Fiddler\FiddlerCore3dot5.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\引用dll\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\引用dll\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\dllImport\MongoDB-1.7.0.4714\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\dllImport\MongoDB-1.7.0.4714\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\引用dll\MySql\v4.5.1\MySql.Data.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Spire.XLS">
-      <HintPath>..\引用dll\Spire.XLS.7.10.79\lib\net40-client\Spire.XLS.dll</HintPath>
+      <HintPath>..\packages\Spire.XLS.7.12.43\lib\net40-client\Spire.XLS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>..\引用dll\SQLite\SQLite-netx4.0-x64\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.105.2\lib\net451\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="ThoughtWorks.QRCode">
-      <HintPath>..\引用dll\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\MemoryCacheHelper.cs" />
     <Compile Include="Chinese2Spell.cs" />
     <Compile Include="ChineseNum.cs" />
     <Compile Include="CodeCommon.cs" />
+    <Compile Include="Collection\ArrayHelper.cs" />
+    <Compile Include="Collection\CollectionExtensions.cs" />
+    <Compile Include="Collection\IEnumerableExtensions.cs" />
+    <Compile Include="Collection\ListHelper.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
-    <Compile Include="DatabaseExtensions.cs" />
     <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="DBHelper\Dapper\Core\DataBaseAccess.cs" />
@@ -95,11 +112,13 @@
     <Compile Include="DBHelper\CrDB\DBHelper2.cs" />
     <Compile Include="DBHelper\CrDB\IDBHelper.cs" />
     <Compile Include="DBHelper\DataAccess\MySqlHelper.cs" />
-    <Compile Include="DEncryptUtils.cs" />
+    <Compile Include="DEncryptHelper.cs" />
     <Compile Include="DistinctHelper.cs" />
     <Compile Include="DynamicFactory.cs" />
     <Compile Include="ExChangeChinese.cs" />
     <Compile Include="FiddlerListeners.cs" />
+    <Compile Include="Forms\AutoSizeForm.cs" />
+    <Compile Include="Forms\FormProcess.cs" />
     <Compile Include="FTPHelper.cs" />
     <Compile Include="HttpDownload.cs" />
     <Compile Include="IDataReaderExtensions.cs" />
@@ -108,14 +127,23 @@
     <Compile Include="IntegerHelper.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Log4NetHelper.cs" />
+    <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
+    <Compile Include="MongoDB\BaseModel.cs" />
+    <Compile Include="MongoDB\IMongoEntity.cs" />
+    <Compile Include="MongoDB\ManagerConfig.cs" />
+    <Compile Include="MongoDB\MongodbBase.cs" />
+    <Compile Include="MongoDB\MongodbConfig.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />
-    <Compile Include="PublicInfo.cs" />
     <Compile Include="RandomHelper.cs" />
+    <Compile Include="Reflection\PropertyInfoExtensions.cs" />
     <Compile Include="RegexUtil.cs" />
+    <Compile Include="RegistryHelper.cs" />
     <Compile Include="SerializableDictionary.cs" />
+    <Compile Include="Serialization\BinaryFormatterHelper.cs" />
+    <Compile Include="Serialization\SoapFormatterHelper.cs" />
     <Compile Include="Similarity\LevenshteinDistance\LevenshteinDistance.cs" />
     <Compile Include="Similarity\SimHash\Analysers\SimHashAnalyser.cs" />
     <Compile Include="Similarity\SimHash\Interfaces\IAnalyser.cs" />
@@ -138,6 +166,7 @@
     <Compile Include="WaterImageManage.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="XmlHelper.cs" />
+    <Compile Include="Xml\XmlDocumentHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -169,6 +198,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

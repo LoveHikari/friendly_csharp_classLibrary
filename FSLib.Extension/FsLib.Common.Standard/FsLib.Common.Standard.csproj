@@ -6,18 +6,19 @@
     <RootNamespace>System</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\FsLib.Common.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Caching\**" />
     <Compile Remove="DBHelper\**" />
     <Compile Remove="Forms\**" />
     <Compile Remove="MongoDB\**" />
     <Compile Remove="OCR\**" />
-    <EmbeddedResource Remove="Caching\**" />
     <EmbeddedResource Remove="DBHelper\**" />
     <EmbeddedResource Remove="Forms\**" />
     <EmbeddedResource Remove="MongoDB\**" />
     <EmbeddedResource Remove="OCR\**" />
-    <None Remove="Caching\**" />
     <None Remove="DBHelper\**" />
     <None Remove="Forms\**" />
     <None Remove="MongoDB\**" />

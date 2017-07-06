@@ -24,8 +24,8 @@ namespace System
     {
         private static readonly object Locker = new object();
 
-        private static readonly string LoginfoDir = GetLogger("loginfo");
-        private static readonly string LogerrorDir = GetLogger("logerror");
+        private static string LoginfoDir => GetLogger("loginfo");
+        private static string LogerrorDir => GetLogger("logerror");
 
         /// <summary>
         /// 输出log
@@ -141,7 +141,7 @@ namespace System
                 logDir = System.Configuration.ConfigurationManager.AppSettings["LogInfoPath"]?.Trim();    //获得文件夹路径
                 if (string.IsNullOrEmpty(logDir))
                 {
-                    logDir = System.IO.Path.Combine(Environment.CurrentDirectory, "Log\\LogInfo");  //如果日志文件为空，则默认在Debug目录下新建 Log\LogInfo目录
+                    logDir = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Log\\LogInfo");  //如果日志文件为空，则默认在Debug目录下新建 Log\LogInfo目录
                 }
             }
             else
@@ -149,7 +149,7 @@ namespace System
                 logDir = System.Configuration.ConfigurationManager.AppSettings["LogErrorPath"]?.Trim();    //获得文件夹路径
                 if (string.IsNullOrEmpty(logDir))
                 {
-                    logDir = System.IO.Path.Combine(Environment.CurrentDirectory, "Log\\LogError");  //如果日志文件为空，则默认在Debug目录下新建 Log\LogError目录
+                    logDir = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Log\\LogError");  //如果日志文件为空，则默认在Debug目录下新建 Log\LogError目录
                 }
             }
 

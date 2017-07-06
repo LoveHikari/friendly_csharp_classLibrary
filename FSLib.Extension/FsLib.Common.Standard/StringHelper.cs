@@ -442,35 +442,7 @@ namespace System
                 return result;
             return 0;
         }
-        /// <summary>
-        /// 转换成时间类型，失败则得到最小时间
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static DateTime ToDateTime(this string s)
-        {
-            DateTime result;
-            if (DateTime.TryParse(s, out result))
-            {
-                return result;
-            }
-            return DateTime.MinValue;
-        }
-        /// <summary>
-        /// 转换成时间类型，失败则得到最小时间
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        public static DateTime ToDateTime(this string s, IFormatProvider provider)
-        {
-            DateTime result;
-            if (DateTime.TryParse(s, provider, DateTimeStyles.None, out result))
-            {
-                return result;
-            }
-            return DateTime.MinValue;
-        }
+
         /// <summary>
         /// 如果字符串是数，则进行四舍五入，否则不做任何操作;如果是整数则返回整数，否则返回<paramref name="digits"/>位小数
         /// </summary>

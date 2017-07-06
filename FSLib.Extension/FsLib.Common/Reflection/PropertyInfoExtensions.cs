@@ -16,7 +16,7 @@ namespace System.Reflection
         /// <param name="value">新的属性值</param>
         /// <param name="culture">无用</param>
         /// <remarks>http://www.cnblogs.com/gossip/p/3913428.html</remarks>
-        public static void SetValue(this Reflection.PropertyInfo pi, object t, object value, CultureInfo culture)
+        public static void SetValue(this Reflection.PropertyInfo pi, object t, object value, int culture)
         {
             if (value != DBNull.Value)
             {

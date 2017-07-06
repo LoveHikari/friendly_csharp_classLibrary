@@ -415,19 +415,6 @@ namespace System
             int colsCount = ws.Columns.Length;
             return new object[] { rowsCount, colsCount };
         }
-#elif C6
-        /// <summary>
-        /// 获得最大行列数
-        /// </summary>
-        /// <param name="wsn">工作表的名称</param>
-        /// <returns>最大行数,最大列数</returns>
-        public Tuple<int, int> GetMaxCount(string wsn)
-        {
-            Worksheet ws = GetSheet(wsn);
-            int rowsCount = ws.Rows.Length;
-            int colsCount = ws.Columns.Length;
-            return new Tuple<int, int>(rowsCount, colsCount);
-        }
 #else
         /// <summary>
         /// 获得最大行列数

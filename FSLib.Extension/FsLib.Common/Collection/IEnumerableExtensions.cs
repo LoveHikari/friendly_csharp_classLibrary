@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Spire.Xls.Core.Parser.Biff_Records.ObjRecords;
 
 namespace System.Collection
@@ -31,26 +32,59 @@ namespace System.Collection
             }
 
         }
-
-    }
-
-
-
-
-
-    /// <summary>
-    /// 比较器
-    /// </summary>
-    class CompareOnly : IEqualityComparer<string>
-    {
-        public bool Equals(string x, string y)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static List<T> ToList<T>(this IEnumerable<dynamic> source) where T : new()
         {
-            return x.ToUpper() == y.ToUpper();
+            var list = source.ToList();
+            if (!list.Any())
+            {
+                return null;
+            }
+            else
+            {
+                List<T> ls = new List<T>();
+
+                foreach (var o in list)
+                {
+                    Type type = o.GetType();
+
+                    T t = new T();
+                    Type ty = t.GetType();
+                    var pros = ty.GetProperties();
+                    foreach (PropertyInfo pro in pros)
+                    {
+                        pro.SetValue(t, (object)type.GetProperty(pro.Name).GetValue(o, null), 0);
+                    }
+
+                    ls.Add(t);
+                }
+                return ls;
+            }
         }
 
-        public int GetHashCode(string obj)
+
+
+
+
+        /// <summary>
+        /// 比较器
+        /// </summary>
+        class CompareOnly : IEqualityComparer<string>
         {
-            return obj.GetHashCode();
+            public bool Equals(string x, string y)
+            {
+                return x.ToUpper() == y.ToUpper();
+            }
+
+            public int GetHashCode(string obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

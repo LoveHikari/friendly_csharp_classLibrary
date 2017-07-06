@@ -22,9 +22,9 @@ namespace System
     /// </summary>
     public class Log4NetHelper
     {
-        private static readonly log4net.ILog Loginfo = log4net.LogManager.GetLogger("loginfo");
+        private static log4net.ILog Loginfo => log4net.LogManager.GetLogger("loginfo");
 
-        private static readonly log4net.ILog Logerror = log4net.LogManager.GetLogger("logerror");
+        private static log4net.ILog Logerror => log4net.LogManager.GetLogger("logerror");
         /// <summary>
         /// 输出logo
         /// </summary>

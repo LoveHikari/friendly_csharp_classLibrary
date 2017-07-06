@@ -13,6 +13,8 @@
  * 
  * ***************************************************************************************************************/
 
+using System.Globalization;
+
 namespace System
 {
     /// <summary>
@@ -79,7 +81,7 @@ namespace System
         /// <param name="source"></param>
         /// <param name="defaultValue">指定转换失败时返回的值，默认为0</param>
         /// <returns></returns>
-        public static short ToShort(this object source, short defaultValue=0)
+        public static short ToShort(this object source, short defaultValue = 0)
         {
             if (string.IsNullOrEmpty(source.ToString()))
                 return defaultValue;
@@ -134,6 +136,30 @@ namespace System
                 result = defaultValue;
             return result;
         }
-        
+        /// <summary>
+        /// 转换成时间类型，失败则得到最小时间
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this object s)
+        {
+            return (DateTime)s.ToDateTime(DateTime.MaxValue);
+        }
+        /// <summary>
+        /// 转换成时间类型，失败则得到最小时间
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime? ToDateTime(this object s, DateTime? value)
+        {
+            if (s == null) return value;
+            DateTime result;
+            if (DateTime.TryParse(s.ToString(), out result))
+            {
+                return result;
+            }
+            return value;
+        }
     }
 }

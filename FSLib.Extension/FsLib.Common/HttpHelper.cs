@@ -132,20 +132,6 @@ namespace System
         {
             return HttpRequest(url, "POST", postDataStr, chareset, headerItem, cookies, "");
         }
-#elif C6
-        /// <summary>
-        /// http POST 请求
-        /// </summary>
-        /// <param name="url">请求地址</param>
-        /// <param name="postDataStr">请求主体</param>
-        /// <param name="chareset">编码，默认utf-8</param>
-        /// <param name="headerItem"></param>
-        /// <param name="cookies">cookie容器</param>
-        /// <returns>响应的页面, 响应的cookie</returns>
-        public static Tuple<string, string> HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
-        {
-            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, cookies, "");
-        }
 #else
         /// <summary>
         /// http POST 请求
@@ -173,20 +159,6 @@ namespace System
         /// <param name="cookie">cookie容器</param>
         /// <returns>响应的页面, 响应的cookie</returns>
         public static object[] HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
-        {
-            return HttpRequest(url, "POST", postDataStr, chareset, headerItem, null, cookie);
-        }
-#elif C6
-        /// <summary>
-        /// http POST 请求
-        /// </summary>
-        /// <param name="url">请求地址</param>
-        /// <param name="postDataStr">请求主体</param>
-        /// <param name="chareset">编码，默认utf-8</param>
-        /// <param name="headerItem"></param>
-        /// <param name="cookie">cookie容器</param>
-        /// <returns>响应的页面, 响应的cookie</returns>
-        public static Tuple<string, string> HttpPostRequest(string url, string postDataStr, string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
         {
             return HttpRequest(url, "POST", postDataStr, chareset, headerItem, null, cookie);
         }
@@ -220,20 +192,6 @@ namespace System
         {
             return HttpRequest(url, "GET", getDataStr, chareset, headerItem, cookies, "");
         }
-#elif C6
-        /// <summary>
-        /// http GET 请求
-        /// </summary>
-        /// <param name="url">请求地址</param>
-        /// <param name="getDataStr">请求内容</param>
-        /// <param name="chareset">编码，默认utf-8</param>
-        /// <param name="headerItem">请求头</param>
-        /// <param name="cookies">cookie容器</param>
-        /// <returns>响应的页面, 响应的cookie</returns>
-        public static Tuple<string, string> HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, CookieContainer cookies = null)
-        {
-            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, cookies, "");
-        }
 #else
         /// <summary>
         /// http GET 请求
@@ -261,20 +219,6 @@ namespace System
         /// <param name="cookie">cookie容器</param>
         /// <returns>响应的页面</returns>
         public static object[] HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
-        {
-            return HttpRequest(url, "GET", getDataStr, chareset, headerItem, null, cookie);
-        }
-#elif C6
-        /// <summary>
-        /// http GET 请求
-        /// </summary>
-        /// <param name="url">请求地址</param>
-        /// <param name="getDataStr">请求内容</param>
-        /// <param name="chareset">编码，默认utf-8</param>
-        /// <param name="headerItem">请求头</param>
-        /// <param name="cookie">cookie容器</param>
-        /// <returns>响应的页面</returns>
-        public static Tuple<string, string> HttpGetRequest(string url, string getDataStr = "", string chareset = "utf-8", Hashtable headerItem = null, string cookie = "")
         {
             return HttpRequest(url, "GET", getDataStr, chareset, headerItem, null, cookie);
         }
