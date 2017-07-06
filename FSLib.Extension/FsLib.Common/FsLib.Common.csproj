@@ -134,6 +134,11 @@
     <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="MongoDB\BaseModel.cs" />
+    <Compile Include="MongoDB\IMongoEntity.cs" />
+    <Compile Include="MongoDB\ManagerConfig.cs" />
+    <Compile Include="MongoDB\MongodbBase.cs" />
+    <Compile Include="MongoDB\MongodbConfig.cs" />
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />
