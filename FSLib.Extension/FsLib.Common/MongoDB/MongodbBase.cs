@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
-namespace Utilities.MongoDB
+namespace System.MongoDB
 {
     public class MongodbBase<T> where T : class, IMongoEntity
     {

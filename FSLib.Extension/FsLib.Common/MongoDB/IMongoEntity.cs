@@ -1,4 +1,4 @@
-﻿namespace Utilities.MongoDB
+﻿namespace System.MongoDB
 {
     /// <summary>
     /// 实体接口

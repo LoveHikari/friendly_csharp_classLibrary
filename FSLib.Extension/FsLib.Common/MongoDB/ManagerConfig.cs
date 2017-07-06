@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Utilities.MongoDB
+namespace System.MongoDB
 {
     /// <summary>
     /// 读取配置文件管理类

@@ -1,8 +1,7 @@
-﻿using System;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Utilities.MongoDB
+namespace System.MongoDB
 {
     /// <summary>
     /// 底层实体基类
