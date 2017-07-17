@@ -377,7 +377,7 @@ namespace System
         /// <param name="input">需要加密的字符串</param>
         /// <param name="encoding">字符的编码</param>
         /// <returns></returns>
-        public static string MD5Encrypt(string input, string encoding="utf-8")
+        public static string MD5Encrypt(string input, string encoding = "utf-8")
         {
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] t = md5.ComputeHash(Encoding.GetEncoding(encoding).GetBytes(input));
@@ -449,7 +449,12 @@ namespace System
             //SHA1 sha1 = System.Security.Cryptography.SHA1.Create();
             byte[] bytesIn = System.Text.Encoding.GetEncoding(encoding).GetBytes(content);
             byte[] bytesOut = sha1.ComputeHash(bytesIn);
+
+#if NET35
+            sha1.Clear();
+#else
             sha1.Dispose();
+#endif
             string result = BitConverter.ToString(bytesOut);
             result = result.Replace("-", "");
             return result;

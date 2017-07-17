@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
@@ -13,9 +14,9 @@ namespace System.DBHelper.CrDB
     /// </summary>
     public abstract class CrDB : IDBHelper
     {
-        
+
         private string _providerName;
-        
+
         private string _connectionString;
         private DbCommand _dbCommand;
         /// <summary>
@@ -45,7 +46,7 @@ namespace System.DBHelper.CrDB
         /// </summary>
         protected CrDB()
         {
-            
+
         }
 
         #region 私有方法
@@ -624,7 +625,7 @@ namespace System.DBHelper.CrDB
             try
             {
                 dataAdapter.Fill(result);
-                _dbCommand = ((System.Data.SqlClient.SqlDataAdapter) dataAdapter).SelectCommand;
+                _dbCommand = ((System.Data.SqlClient.SqlDataAdapter)dataAdapter).SelectCommand;
             }
             catch (Exception ex)
             {
@@ -807,6 +808,42 @@ namespace System.DBHelper.CrDB
         #endregion
 
         #endregion
+        /// <summary>
+        /// SQL Server 批量插入数据
+        /// </summary>
+        /// <param name="tableName">目标表</param>
+        /// <param name="dt">源数据</param>
+        public void SqlBulkCopyByDatatable(string tableName, DataTable dt)
+        {
+            using (DbConnection conn = CreateConnection())
+            {
+                using (Data.SqlClient.SqlBulkCopy sqlbulkcopy = new Data.SqlClient.SqlBulkCopy(_connectionString, Data.SqlClient.SqlBulkCopyOptions.UseInternalTransaction))
+                {
+                    try
+                    {
 
+                        string sql = @"SELECT a.name FROM syscolumns a
+                                    INNER JOIN sysobjects b ON a.id=b.id
+                                    WHERE b.name=@tableName";
+                        List<DBParam> dbParams = new List<DBParam>(new DBParam[]
+                        {
+                            new DBParam("@tableName",tableName, DbType.String,500),
+                        });
+                        List<string> dbList =  ExecuteDataTable(sql, dbParams).Columns["name"].ToList<string>();
+
+                        sqlbulkcopy.DestinationTableName = tableName;
+                        for (int i = 1; i < dt.Columns.Count; i++)
+                        {
+                            sqlbulkcopy.ColumnMappings.Add(dt.Columns[i].ColumnName, dbList.First(p => p.ToLower()== dt.Columns[i].ColumnName.ToLower()));
+                        }
+                        sqlbulkcopy.WriteToServer(dt);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
     }
 }

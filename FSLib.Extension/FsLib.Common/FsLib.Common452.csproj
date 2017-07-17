@@ -129,6 +129,7 @@
     <Compile Include="Log4NetHelper.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="MicrosoftExcelHelper.cs" />
+    <Compile Include="ModelHandler.cs" />
     <Compile Include="MongoDB\BaseModel.cs" />
     <Compile Include="MongoDB\IMongoEntity.cs" />
     <Compile Include="MongoDB\ManagerConfig.cs" />

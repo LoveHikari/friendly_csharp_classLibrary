@@ -15,7 +15,7 @@ namespace System.Serialization
         public static void SerilizeToFile(object obj, string fliePath)
         {
             string dir = Path.GetDirectoryName(fliePath);
-            if (!string.IsNullOrWhiteSpace(dir))
+            if (!string.IsNullOrEmpty(dir))
             {
                 if (!System.IO.Directory.Exists(dir))
                 {

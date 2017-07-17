@@ -64,7 +64,7 @@ namespace System
         /// <returns></returns>
         public static string UrlToJson(string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrEmpty(url))
             {
                 return "";
             }
