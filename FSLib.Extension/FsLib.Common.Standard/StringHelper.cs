@@ -173,7 +173,7 @@ namespace System
         /// <param name="value">字符串</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public static string LastLeft(this string value, int length)
+        public static string SubLeft(this string value, int length)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -191,7 +191,7 @@ namespace System
         /// <param name="value">字符串</param>
         /// <param name="length">长度</param>
         /// <returns></returns>
-        public static string LastRight(this string value, int length)
+        public static string SubRight(this string value, int length)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -205,7 +205,7 @@ namespace System
             return value.Substring(value.Length - length);
         }
         /// <summary>
-        /// 获取拆分符左边的字符串
+        /// 获取拆分符左边的字符串，不包括拆分符
         /// </summary>
         /// <param name="value"></param>
         /// <param name="split">拆分符</param>
@@ -227,7 +227,7 @@ namespace System
             }
         }
         /// <summary>
-        /// 获取拆分符右边的字符串
+        /// 获取拆分符右边的字符串，不包括拆分符
         /// </summary>
         /// <param name="value"></param>
         /// <param name="split">拆分符</param>
@@ -248,7 +248,18 @@ namespace System
                 return value;
             }
         }
-
+        /// <summary>
+        /// 获取序号之间的字符串，包括两端序号，序号从0开始
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex">开始序号</param>
+        /// <param name="endIndex">结束序号</param>
+        /// <returns></returns>
+        public static string SubBetween(this string value, int startIndex, int endIndex)
+        {
+            value = value.Substring(startIndex, endIndex - startIndex + 1);
+            return value;
+        }
         /// <summary>
         /// 删除不可见字符
         /// </summary>
@@ -318,7 +329,7 @@ namespace System
         }
 
         /// <summary>
-        /// 截取从startString开始到结尾的字符
+        /// 截取从startString开始到结尾的字符，不包括前端
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startString"></param>
@@ -342,7 +353,7 @@ namespace System
             }
         }
         /// <summary>
-        /// 截取从startString开始到endString的字符
+        /// 截取从startString开始到endString的字符，不包括两端
         /// </summary>
         /// <param name="value"></param>
         /// <param name="startString"></param>

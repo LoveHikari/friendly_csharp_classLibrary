@@ -3,6 +3,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace System.Serialization
 {
+    /// <summary>
+    /// Binary序列化帮助类，序列化为二进制文件(bat)
+    /// </summary>
     public class BinaryFormatterHelper
     {
         #region 序列化

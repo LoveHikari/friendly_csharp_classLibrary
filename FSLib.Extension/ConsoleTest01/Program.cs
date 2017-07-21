@@ -15,9 +15,11 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-            "".ToDateTime(null);
+            string s = "1234567890";
+            s = s.SubBetween(3,6);  //4567
 
             System.Console.WriteLine("OK");
+            System.Console.WriteLine(s);
             System.Console.ReadKey();
 
         }

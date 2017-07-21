@@ -261,7 +261,7 @@ namespace System
         /// <returns>时间</returns>
         public static DateTime ConvertDateTime(string timeStamp)
         {
-            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            DateTime dtStart = TimeZoneInfo.ConvertTime(new System.DateTime(1970, 1, 1), TimeZoneInfo.Local);
             long lTime = long.Parse(timeStamp + "0000000");
             TimeSpan toNow = new TimeSpan(lTime); return dtStart.Add(toNow);
         }
@@ -271,10 +271,42 @@ namespace System
         /// </summary>
         /// <param name="time">时间</param>
         /// <returns>Unix时间戳</returns>
-        public static int ConvertDateTimeInt(System.DateTime time)
+        public static long ConvertDateTimeInt(System.DateTime time)
         {
-            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
-            return (int)(time - startTime).TotalSeconds;
+            System.DateTime startTime = TimeZoneInfo.ConvertTime(new System.DateTime(1970, 1, 1),TimeZoneInfo.Local);
+            return (long)(time - startTime).TotalSeconds;
+        }
+        /// <summary>
+        /// 判断两个时间是否是在同一周
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
+        public static bool IsWeekSame(String date1, String date2)
+        {
+
+            DateTime dt1 = DateTime.Parse(date1);
+            DateTime dt2 = DateTime.Parse(date2);
+            DateTime temp1 = dt1.AddDays(-(int)dt1.DayOfWeek).Date;
+            DateTime temp2 = dt2.AddDays(-(int)dt2.DayOfWeek).Date;
+            bool result = temp1 == temp2;
+            return result;
+        }
+        /// <summary>
+        /// 判断两个时间是否是在同一月
+        /// </summary>
+        /// <param name="date1"></param>
+        /// <param name="date2"></param>
+        /// <returns></returns>
+        public static bool IsMonthSame(String date1, String date2)
+        {
+
+            DateTime dt1 = DateTime.Parse(date1);
+            DateTime dt2 = DateTime.Parse(date2);
+            int temp1 = dt1.Month;
+            int temp2 = dt2.Month;
+            bool result = temp1 == temp2;
+            return result;
         }
     }
 }

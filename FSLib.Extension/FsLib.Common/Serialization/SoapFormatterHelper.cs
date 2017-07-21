@@ -3,6 +3,9 @@ using System.Runtime.Serialization.Formatters.Soap;
 
 namespace System.Serialization
 {
+    /// <summary>
+    /// soap序列化帮助类，序列化为xml
+    /// </summary>
     public class SoapFormatterHelper
     {
         #region 序列化
