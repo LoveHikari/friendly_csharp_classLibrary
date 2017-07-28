@@ -625,16 +625,19 @@ namespace System
         ///  将 Stream 写入文件 
         /// </summary>
         /// <param name="stream"></param>
-        /// <param name="fileName"></param>
-        public static void StreamToFile(Stream stream, string fileName)
+        /// <param name="filePath">文件路径</param>
+        public static void StreamToFile(Stream stream, string filePath)
         {
+            string fileDir = System.IO.Path.GetDirectoryName(filePath);
+            DirectoryCreate(fileDir);
+
             // 把 Stream 转换成 byte[] 
             byte[] bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
             // 设置当前流的位置为流的开始 
             stream.Seek(0, SeekOrigin.Begin);
             // 把 byte[] 写入文件 
-            FileStream fs = new FileStream(fileName, FileMode.Create);
+            FileStream fs = new FileStream(filePath, FileMode.Create);
             BinaryWriter bw = new BinaryWriter(fs);
             bw.Write(bytes);
             bw.Close();

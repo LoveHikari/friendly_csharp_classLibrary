@@ -625,7 +625,11 @@ namespace System.DBHelper.CrDB
             try
             {
                 dataAdapter.Fill(result);
-                _dbCommand = ((System.Data.SqlClient.SqlDataAdapter)dataAdapter).SelectCommand;
+                if (string.IsNullOrEmpty(_providerName) || _providerName== "System.Data.SqlClient")
+                {
+                    _dbCommand = ((System.Data.SqlClient.SqlDataAdapter)dataAdapter).SelectCommand;
+                }
+                
             }
             catch (Exception ex)
             {
