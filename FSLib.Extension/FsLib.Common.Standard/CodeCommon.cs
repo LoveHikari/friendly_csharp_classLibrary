@@ -237,7 +237,7 @@ namespace System
                 "ntext","nvarchar","smalldatetime","smallint","text","bigint","binary","char","nchar","numeric",
                 "real","smallmoney", "sql_variant","timestamp","tinyint","uniqueidentifier","varbinary","mediumint","mediumtext"};
 
-            string[] dotNetTypes = {"int", "int", "string","bool" ,"DateTime","Decimal","Double","Byte[]","Single",
+            string[] dotNetTypes = {"int", "int", "string","bool" ,"DateTime","Decimal","Double","Byte[]","Decimal",
                 "string","string","DateTime","Int16","string","Int64","Byte[]","string","string","Decimal",
                 "Single","Single", "Object","Byte[]","Byte","Guid","Byte[]","int","string"};
             int i = Array.IndexOf(sqlTypeNames, sqlTypeString.ToLower());
