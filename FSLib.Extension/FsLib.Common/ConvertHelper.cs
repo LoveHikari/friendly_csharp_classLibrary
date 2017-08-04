@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 
@@ -191,6 +192,55 @@ namespace System
         /// <returns></returns>
         public static T Cast<T>(object obj, T type) where T : class, new()
         {
+            return (T)obj;
+        }
+
+        /// <summary>
+        /// 以最大的可能性返回一个指定类型的对象，该对象的值等效于指定的对象。
+        /// </summary>
+        /// <param name="value">需要转化的对象</param>
+        /// <param name="conversionType">转化后的类型</param>
+        /// <returns>转化后的对象</returns>
+        public static object ChangeType(object value, Type conversionType)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            object obj = conversionType.Assembly.CreateInstance(conversionType.FullName);
+
+            Type oldType = value.GetType();
+            PropertyInfo[] propertyInfos = conversionType.GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                propertyInfo.SetValue(obj, oldType.GetProperty(propertyInfo.Name)?.GetValue(value), 0);
+            }
+
+            return obj;
+        }
+
+        /// <summary>
+        /// 以最大的可能性返回一个指定类型的对象，该对象的值等效于指定的对象。
+        /// </summary>
+        /// <typeparam name="T">转化后的类型</typeparam>
+        /// <param name="value">需要转化的对象</param>
+        /// <returns>转化后的对象</returns>
+        public static T ChangeType<T>(object value)
+        {
+            if (value == null)
+            {
+                return default(T);
+            }
+            Type conversionType = typeof(T);
+            object obj = conversionType.Assembly.CreateInstance(conversionType.FullName);
+
+            Type oldType = value.GetType();
+            PropertyInfo[] propertyInfos = conversionType.GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                propertyInfo.SetValue(obj, oldType.GetProperty(propertyInfo.Name)?.GetValue(value), 0);
+            }
+
             return (T)obj;
         }
     }

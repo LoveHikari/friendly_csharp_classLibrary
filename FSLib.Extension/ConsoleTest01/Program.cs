@@ -15,11 +15,11 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-            string s = "1234567890";
-            s = s.SubBetween(3,6);  //4567
+            System.Diagnostics.Debug.WriteLine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+            System.Diagnostics.Debug.WriteLine(AppContext.BaseDirectory);
+            System.Diagnostics.Debug.WriteLine(Environment.CurrentDirectory);
 
             System.Console.WriteLine("OK");
-            System.Console.WriteLine(s);
             System.Console.ReadKey();
 
         }

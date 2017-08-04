@@ -33,11 +33,11 @@ namespace System.Collection
 
         }
         /// <summary>
-        /// 
+        /// 以最大限度填充list
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">要填充的类型</typeparam>
+        /// <param name="source">填充对象</param>
+        /// <returns>填充后的集合</returns>
         public static List<T> ToList<T>(this IEnumerable<dynamic> source) where T : new()
         {
             var list = source.ToList();
