@@ -31,7 +31,6 @@
     <Compile Remove="DynamicFactory.cs" />
     <Compile Remove="ExChangeChinese.cs" />
     <Compile Remove="FiddlerListeners.cs" />
-    <Compile Remove="ImageHelper.cs" />
     <Compile Remove="LogHelper.cs" />
     <Compile Remove="MicrosoftExcelHelper.cs" />
     <Compile Remove="RegistryHelper.cs" />
@@ -43,6 +42,7 @@
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="ZKWeb.System.Drawing" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

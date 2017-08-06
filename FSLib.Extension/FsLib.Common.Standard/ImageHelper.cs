@@ -1,8 +1,7 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+﻿using System.DrawingCore;
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore.Imaging;
 using System.IO;
-using ThoughtWorks.QRCode.Codec;
 
 /******************************************************************************************************************
  * 
@@ -83,12 +82,12 @@ namespace System
         /// </summary>
         /// <param name="image">图片对象</param>  
         /// <returns>二进制</returns>  
-        public static byte[] ImageToBytes(System.Drawing.Image image)
+        public static byte[] ImageToBytes(Image image)
         {
             //将Image转换成流数据，并保存为byte[]   
             using (MemoryStream mstream = new MemoryStream())
             {
-                image.Save(mstream, System.Drawing.Imaging.ImageFormat.Bmp);
+                image.Save(mstream, DrawingCore.Imaging.ImageFormat.Bmp);
                 byte[] byData = new Byte[mstream.Length];
                 mstream.Position = 0;
                 mstream.Read(byData, 0, byData.Length);
@@ -103,7 +102,7 @@ namespace System
         /// <param name="image">图片对象</param>
         /// <param name="imageFormat">后缀名</param>
         /// <returns></returns>
-        public static byte[] ImageToBytes(Image image, System.Drawing.Imaging.ImageFormat imageFormat)
+        public static byte[] ImageToBytes(Image image, DrawingCore.Imaging.ImageFormat imageFormat)
         {
             if (image == null) { return null; }
             byte[] data;
@@ -125,7 +124,7 @@ namespace System
         /// </summary>
         /// <param name="bitmap"></param>
         /// <returns></returns>
-        public static System.Drawing.Image BitmapToImage(System.Drawing.Bitmap bitmap)
+        public static Image BitmapToImage(Bitmap bitmap)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -175,7 +174,7 @@ namespace System
         public static int ReadPictureDegree(string path)
         {
             int rotate = 0;
-            using (var image = System.Drawing.Image.FromFile(path))
+            using (var image = Image.FromFile(path))
             {
                 foreach (var prop in image.PropertyItems)
                 {
@@ -259,8 +258,7 @@ namespace System
             }
             catch (Exception ex)
             {
-                LogHelper.WriteError(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -347,7 +345,7 @@ namespace System
                 // 获取GDI+绘图图画
                 Graphics graph = Graphics.FromImage(image);
                 // 定义画笔
-                SolidBrush brush = new SolidBrush(Color.White);
+                SolidBrush brush = new SolidBrush(Color.Wheat);
                 // 绘制背景色
                 graph.FillRectangle(brush, new Rectangle(0, 0, image.Width, image.Height));
                 // 叠加图片
@@ -439,34 +437,6 @@ namespace System
             image.Dispose();
         }
 
-        #region 生成二维码 
-
-        /// <summary>
-        /// 生成二维码图片
-        /// </summary>
-        /// <param name="strCode">要生成的文字或者数字，支持中文。如： "4408810820 深圳－广州" 或者：4444444444</param>
-        /// <param name="size">大小尺寸</param>
-        /// <returns>二维码图片</returns>
-        /// <remarks>http://www.cnblogs.com/judy0605/p/3340350.html http://www.cnblogs.com/jys509/p/4592539.html http://blog.csdn.net/lybwwp/article/details/18444369 </remarks>
-        public Bitmap CreateQrCode(string strCode, int size)
-        {
-            //创建二维码生成类  
-            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
-            //设置编码模式  ,三种模式：BYTE ，ALPHA_NUMERIC，NUMERIC
-            qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-            //设置编码测量度(每个小方格的宽度)，比如4 
-            qrCodeEncoder.QRCodeScale = size;
-            //设置编码版本(二维码版本号)，比如8
-            //字符串较长的情况下，用ThoughtWorks.QRCode生成二维码时出现“索引超出了数组界限”的错误。
-            //解决方法：将 QRCodeVersion 改为0。
-            qrCodeEncoder.QRCodeVersion = 0;
-            //设置编码错误纠正，大小：L M Q H
-            qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
-            //生成二维码图片
-            System.Drawing.Bitmap image = qrCodeEncoder.Encode(strCode);
-            return image;
-        }
-
-        #endregion
+        
     }
 }
