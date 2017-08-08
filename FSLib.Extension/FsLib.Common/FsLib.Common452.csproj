@@ -97,7 +97,6 @@
     <Compile Include="Collection\ArrayHelper.cs" />
     <Compile Include="Collection\CollectionExtensions.cs" />
     <Compile Include="Collection\IEnumerableExtensions.cs" />
-    <Compile Include="Collection\ListHelper.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="DataTableExtensions.cs" />

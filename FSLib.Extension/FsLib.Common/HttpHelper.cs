@@ -37,7 +37,7 @@ namespace System
         /// <c>！注意：有时候请求会重定向，但我们就需要从重定向url获取东西，像QQ登录成功后获取sid，但上面的会自动根据重定向地址跳转。我们可以用:
         ///     request.AllowAutoRedirect = false;设置重定向禁用，你就可以从headers的Location属性中获取重定向地址</c>
         /// <returns>html代码</returns>
-        public static string GetHttpWebRequest(string url, string chareset = "utf-8", WebProxy proxy = null)
+        public static string GetHttpWebRequest(string url, string chareset, WebProxy proxy)
         {
 #if  NET35
             return HttpRequest(url, "GET", "", chareset, null, proxy, null, "")[0].ToString();
@@ -184,7 +184,7 @@ namespace System
 #else
             (string retHtml, string cookies)
 #endif
-            GetHttpWebRequest(string url, string chareset, Hashtable headerItem = null, string cookie = "")
+            GetHttpWebRequest(string url, string chareset="utf-8", Hashtable headerItem = null, string cookie = "")
         {
             return HttpRequest(url, "GET", "", chareset, headerItem, null, null, cookie);
         }
