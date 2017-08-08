@@ -50,17 +50,19 @@ namespace System
         /// <returns></returns>
         public static Image GetImage(string imagePath)
         {
+            Image image;
             using (FileStream fs = new FileStream(imagePath, FileMode.Open))  //可以是其他重载方法
             {
                 byte[] bytes = new byte[fs.Length];
                 fs.Read(bytes, 0, bytes.Length);
                 using (MemoryStream ms = new MemoryStream(bytes))
                 {
-                    Image image = Image.FromStream(ms);
+                    image = Image.FromStream(ms);
                     ms.Flush();
                     return image;
                 }
             }
+            return image;
         }
         /// <summary>
         /// 二进制数组转图片对象

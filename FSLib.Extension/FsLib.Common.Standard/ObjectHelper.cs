@@ -121,18 +121,40 @@ namespace System
         }
 
         /// <summary>
-        /// 转换为Boolean类型，失败返回false
+        /// 转换为Boolean类型
         /// </summary>
         /// <param name="source"></param>
-        /// <param name="defaultValue">指定转换失败时返回的值,默认为false</param>
+        /// <param name="defaultValue">指定转换失败时返回的值</param>
         /// <returns></returns>
-        public static bool ToBoolean(this object source, bool defaultValue = false)
+        public static bool ToBoolean(this object source, bool defaultValue)
         {
             bool result;
             if (string.IsNullOrEmpty(source.ToString()))
                 return defaultValue;
             if (!bool.TryParse(source.ToString(), out result))
                 result = defaultValue;
+            return result;
+        }
+        /// <summary>
+        /// 转换为Boolean类型，遵循非0即真原则
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool ToBoolean(this object source)
+        {
+            bool result;
+            int i;
+            if (string.IsNullOrEmpty(source.ToString()))
+                return false;
+            if (!bool.TryParse(source.ToString(), out result))  //转化失败
+            {
+                if (int.TryParse(source.ToString(), out i))  //如果是int
+                {
+                    return i != 0;  //非0即真
+                }
+                result = true;
+            }
+
             return result;
         }
         /// <summary>
