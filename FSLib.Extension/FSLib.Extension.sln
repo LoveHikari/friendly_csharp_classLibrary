@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26711.1
+VisualStudioVersion = 15.0.26823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest01", "ConsoleTest01\ConsoleTest01.csproj", "{79E59ABA-9F41-43F4-A0F1-7CB45BDD8A06}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.EntityFramework", "FsLib.EntityFramework\FsLib.EntityFramework.csproj", "{B691234E-AAF8-4FB7-832A-13F482D2D9EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.Common452", "FsLib.Common\FsLib.Common452.csproj", "{B369C8A2-C55D-414D-BBBB-CCCF04B99822}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsLib.Common.Core", "FsLib.Common.Standard\FsLib.Common.Core.csproj", "{1AF07913-85D4-44AE-8E4E-15BFAA83CE7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsLib.Common35", "FsLib.Common\FsLib.Common35.csproj", "{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}"
 EndProject
@@ -43,10 +41,6 @@ Global
 		{B369C8A2-C55D-414D-BBBB-CCCF04B99822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B369C8A2-C55D-414D-BBBB-CCCF04B99822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B369C8A2-C55D-414D-BBBB-CCCF04B99822}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AF07913-85D4-44AE-8E4E-15BFAA83CE7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AF07913-85D4-44AE-8E4E-15BFAA83CE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AF07913-85D4-44AE-8E4E-15BFAA83CE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AF07913-85D4-44AE-8E4E-15BFAA83CE7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4361BB99-0374-4A6F-BFD3-4ABC35ABCF44}.Release|Any CPU.ActiveCfg = Release|Any CPU

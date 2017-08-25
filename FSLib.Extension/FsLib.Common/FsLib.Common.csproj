@@ -109,10 +109,6 @@
     <Compile Include="CookieHelper.cs" />
     <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="DBHelper\Dapper\Core\DataBaseAccess.cs" />
-    <Compile Include="DBHelper\Dapper\Core\SqlClient\Entry.cs" />
-    <Compile Include="DBHelper\Dapper\DataAnnotations\KeyInfoAttribute.cs" />
-    <Compile Include="DBHelper\Dapper\DataAnnotations\TableInfoAttribute.cs" />
     <Compile Include="DBHelper\CrDB\DBParam.cs" />
     <Compile Include="DBHelper\CrDB\CrDB.cs" />
     <Compile Include="DBHelper\CrDB\DBHelper.cs" />

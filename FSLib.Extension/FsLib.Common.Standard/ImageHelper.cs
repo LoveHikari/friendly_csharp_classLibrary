@@ -1,6 +1,6 @@
-﻿using System.DrawingCore;
-using System.DrawingCore.Drawing2D;
-using System.DrawingCore.Imaging;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 
 /******************************************************************************************************************
@@ -89,7 +89,7 @@ namespace System
             //将Image转换成流数据，并保存为byte[]   
             using (MemoryStream mstream = new MemoryStream())
             {
-                image.Save(mstream, DrawingCore.Imaging.ImageFormat.Bmp);
+                image.Save(mstream, Drawing.Imaging.ImageFormat.Bmp);
                 byte[] byData = new Byte[mstream.Length];
                 mstream.Position = 0;
                 mstream.Read(byData, 0, byData.Length);
@@ -104,7 +104,7 @@ namespace System
         /// <param name="image">图片对象</param>
         /// <param name="imageFormat">后缀名</param>
         /// <returns></returns>
-        public static byte[] ImageToBytes(Image image, DrawingCore.Imaging.ImageFormat imageFormat)
+        public static byte[] ImageToBytes(Image image, Drawing.Imaging.ImageFormat imageFormat)
         {
             if (image == null) { return null; }
             byte[] data;
