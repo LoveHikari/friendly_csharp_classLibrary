@@ -57,7 +57,11 @@ namespace System.Collection
                     var pros = ty.GetProperties();
                     foreach (PropertyInfo pro in pros)
                     {
-                        pro.SetValue(t, (object)type.GetProperty(pro.Name).GetValue(o, null), 0);
+                        object value = (object)type.GetProperty(pro.Name).GetValue(o, null);
+
+                        pro.SetValue(t, ConvertHelper.ChangeType(value, pro.PropertyType), null);
+
+
                     }
 
                     ls.Add(t);

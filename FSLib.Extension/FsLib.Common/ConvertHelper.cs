@@ -79,7 +79,7 @@ namespace System
                 }
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
                 throw ex;
@@ -178,7 +178,7 @@ namespace System
         /// <param name="func"></param>
         /// <para>Cast(new { Name = "Tom", Age = 25 }, () => new { Name = "", Age = 0 });</para>
         /// <returns></returns>
-        public static T Cast<T>(object obj, Func<T> func) where T : class,new()
+        public static T Cast<T>(object obj, Func<T> func) where T : class, new()
         {
             return (T)obj;
         }
@@ -196,7 +196,7 @@ namespace System
         }
 
         /// <summary>
-        /// 以最大的可能性返回一个指定类型的对象，该对象的值等效于指定的对象。
+        /// 返回一个指定类型的对象，该对象的值等效于指定的对象。
         /// </summary>
         /// <param name="value">需要转化的对象</param>
         /// <param name="conversionType">转化后的类型</param>
@@ -204,19 +204,13 @@ namespace System
         public static object ChangeType(object value, Type conversionType)
         {
             if (value == null)
-            {
                 return null;
-            }
-            object obj = conversionType.Assembly.CreateInstance(conversionType.FullName);
-
-            Type oldType = value.GetType();
-            PropertyInfo[] propertyInfos = conversionType.GetProperties();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                propertyInfo.SetValue(obj, oldType.GetProperty(propertyInfo.Name)?.GetValue(value), 0);
+                System.ComponentModel.NullableConverter nullableConverter = new System.ComponentModel.NullableConverter(conversionType);
+                conversionType = nullableConverter.UnderlyingType;
             }
-
-            return obj;
+            return Convert.ChangeType(value, conversionType);
         }
 
         /// <summary>
@@ -238,7 +232,8 @@ namespace System
             PropertyInfo[] propertyInfos = conversionType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                propertyInfo.SetValue(obj, oldType.GetProperty(propertyInfo.Name)?.GetValue(value), 0);
+                var v = oldType.GetProperty(propertyInfo.Name)?.GetValue(value);
+                propertyInfo.SetValue(obj, ChangeType(v, propertyInfo.PropertyType), null);
             }
 
             return (T)obj;

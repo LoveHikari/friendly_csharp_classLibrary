@@ -31,7 +31,7 @@ namespace System
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="dt"><see cref="DataTable"/> 数据</param>
         /// <returns>模型列表</returns>
-        public static List<T> ToList<T>(this DataTable dt) where T : class ,new()
+        public static List<T> ToList<T>(this DataTable dt) where T : class, new()
         {
             // 定义集合 
             List<T> ts = new List<T>();
@@ -114,7 +114,9 @@ namespace System
                     //取值
                     object value = dr[tempName];
                     //如果非空，则赋给对象的属性 
-                    pi.SetValue(t, value, 0);
+                    pi.SetValue(t, ConvertHelper.ChangeType(value, pi.PropertyType), null);
+
+
                 }
 
             }
@@ -142,7 +144,7 @@ namespace System
         /// <typeparam name="T">指定集合类型</typeparam>
         /// <param name="dc"><see cref="DataColumn"/> 数据</param>
         /// <returns></returns>
-        public static List<T> ToList<T>(this DataColumn dc) 
+        public static List<T> ToList<T>(this DataColumn dc)
         {
             DataTable dt = dc.Table;
             string columnName = dc.ColumnName;

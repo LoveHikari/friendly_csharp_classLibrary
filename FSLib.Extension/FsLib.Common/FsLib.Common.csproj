@@ -145,7 +145,6 @@
     <Compile Include="OCR\AspriseOcr.cs" />
     <Compile Include="PropertiesHelper.cs" />
     <Compile Include="RandomHelper.cs" />
-    <Compile Include="Reflection\PropertyInfoExtensions.cs" />
     <Compile Include="RegexUtil.cs" />
     <Compile Include="RegistryHelper.cs" />
     <Compile Include="SerializableDictionary.cs" />

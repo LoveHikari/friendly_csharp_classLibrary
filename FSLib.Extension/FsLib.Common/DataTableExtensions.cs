@@ -114,7 +114,7 @@ namespace System
                     //取值
                     object value = dr[tempName];
                     //如果非空，则赋给对象的属性 
-                    pi.SetValue(t, value, 0);
+                    pi.SetValue(t, ConvertHelper.ChangeType(value,pi.PropertyType), null);
                 }
 
             }

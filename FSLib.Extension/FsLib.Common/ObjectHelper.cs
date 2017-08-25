@@ -55,7 +55,7 @@ namespace System
         public static int ToInt32(this object input, int i = 0)
         {
             int result;
-            if (input == null)
+            if (input == null || string.IsNullOrEmpty(input.ToString()))
                 return 0;
             if (int.TryParse(input.ToString(), out result))
                 return result;
@@ -70,7 +70,7 @@ namespace System
         public static long ToLong(this object input, long i = 0L)
         {
             long result;
-            if (input == null)
+            if (input == null || string.IsNullOrEmpty(input.ToString()))
                 return 0L;
             if (long.TryParse(input.ToString(), out result))
                 return result;
@@ -84,7 +84,7 @@ namespace System
         /// <returns></returns>
         public static short ToShort(this object source, short defaultValue = 0)
         {
-            if (string.IsNullOrEmpty(source.ToString()))
+            if (source == null || string.IsNullOrEmpty(source.ToString()))
                 return defaultValue;
             short result;
             if (!short.TryParse(source.ToString(), out result))
@@ -100,6 +100,8 @@ namespace System
         public static decimal ToDecimal(this object s, decimal d = 0)
         {
             decimal result;
+            if (s == null || string.IsNullOrEmpty(s.ToString()))
+                return d;
             if (decimal.TryParse(s.ToString(), out result))
             {
                 return result;
@@ -115,6 +117,8 @@ namespace System
         public static double ToDouble(this object s, double d = 0)
         {
             double result;
+            if (s==null || string.IsNullOrEmpty(s.ToString()))
+                return d;
             if (double.TryParse(s.ToString(), out result))
             {
                 return result;
@@ -130,7 +134,7 @@ namespace System
         public static bool ToBoolean(this object source, bool defaultValue)
         {
             bool result;
-            if (string.IsNullOrEmpty(source.ToString()))
+            if (source == null || string.IsNullOrEmpty(source.ToString()))
                 return defaultValue;
             if (!bool.TryParse(source.ToString(), out result))
                 result = defaultValue;
@@ -145,7 +149,7 @@ namespace System
         {
             bool result;
             int i;
-            if (string.IsNullOrEmpty(source.ToString()))
+            if (source == null || string.IsNullOrEmpty(source.ToString()))
                 return false;
             if (!bool.TryParse(source.ToString(), out result))  //转化失败
             {
@@ -175,7 +179,7 @@ namespace System
         /// <returns></returns>
         public static DateTime? ToDateTime(this object s, DateTime? value)
         {
-            if (s == null) return value;
+            if (s == null || string.IsNullOrEmpty(s.ToString())) return value;
             DateTime result;
             if (DateTime.TryParse(s.ToString(), out result))
             {

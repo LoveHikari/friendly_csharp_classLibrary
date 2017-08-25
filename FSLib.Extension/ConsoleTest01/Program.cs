@@ -15,11 +15,9 @@ namespace ConsoleTest01
     {
         static void Main(string[] args)
         {
-            System.Diagnostics.Debug.WriteLine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
-            System.Diagnostics.Debug.WriteLine(AppContext.BaseDirectory);
-            System.Diagnostics.Debug.WriteLine(Environment.CurrentDirectory);
-
-            System.Console.WriteLine("OK");
+            string s = "0";
+            
+            System.Console.WriteLine(Convert.ChangeType(s, typeof(int)));
             System.Console.ReadKey();
 
         }
