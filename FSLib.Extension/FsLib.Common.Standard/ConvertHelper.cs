@@ -210,7 +210,15 @@ namespace System
                 System.ComponentModel.NullableConverter nullableConverter = new System.ComponentModel.NullableConverter(conversionType);
                 conversionType = nullableConverter.UnderlyingType;
             }
-            return Convert.ChangeType(value, conversionType);
+
+            try
+            {
+                return Convert.ChangeType(value, conversionType);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
