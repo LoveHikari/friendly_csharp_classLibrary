@@ -1,5 +1,6 @@
 # friendly_csharp_classLibrary
 C#类库积累
+本项目不再维护，新项目参见https://github.com/LoveHikari/friendly_csharp_common
 
 目录说明：
 -DBHelper
